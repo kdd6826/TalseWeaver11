@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "Monster_Manager.h"
 class CStage :
 	public CScene
 {
@@ -13,5 +14,8 @@ public:
 	virtual void LateUpdate_Scene() override;
 	virtual void Render_Scene() override;
 	virtual void Release_Scene() override;
+public:
+	CGameObject_Manager* ObjManager = CGameObject_Manager::Get_Instance();
+	CMonsterManager MonsterManager;
 };
 

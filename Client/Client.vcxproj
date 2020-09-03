@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AStar.h" />
+    <ClInclude Include="BlueWolf.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Frame_Manager.h" />
     <ClInclude Include="GameObject.h" />
@@ -165,6 +166,8 @@
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="Logo.h" />
     <ClInclude Include="MainApp.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="Monster_Manager.h" />
     <ClInclude Include="MultiTex.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
@@ -179,9 +182,11 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Texture_Manager.h" />
     <ClInclude Include="Time_Manager.h" />
+    <ClInclude Include="Town1.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AStar.cpp" />
+    <ClCompile Include="BlueWolf.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Frame_Manager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -190,6 +195,8 @@
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="Logo.cpp" />
     <ClCompile Include="MainApp.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Monster_Manager.cpp" />
     <ClCompile Include="MultiTex.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -207,6 +214,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Texture_Manager.cpp" />
     <ClCompile Include="Time_Manager.cpp" />
+    <ClCompile Include="Town1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

@@ -2,6 +2,8 @@
 #include "Stage.h"
 #include "Terrain.h"
 #include "Player.h"
+#include "Monster.h"
+#include "BlueWolf.h"
 CStage::CStage()
 {
 }
@@ -16,6 +18,7 @@ HRESULT CStage::Ready_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create());
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER, CPlayer::Create());
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create());
 	return S_OK;
 }
 
@@ -33,7 +36,7 @@ void CStage::LateUpdate_Scene()
 
 void CStage::Render_Scene()
 {
-	 
+
 	const TEXINFO* pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"TextureEtc", L"Map", 0);
 
 	if (nullptr == pTexInfo)
@@ -42,12 +45,13 @@ void CStage::Render_Scene()
 
 	_matrix matScale, matTrans, matWorld;
 	D3DXMatrixScaling(&matScale, 1.f, 1.f, 0.f);
-	D3DXMatrixTranslation(&matTrans, ShopSize.x/2+ CScroll_Manager::Get_Scroll(CScroll_Manager::X), ShopSize.y/2 + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
+	D3DXMatrixTranslation(&matTrans, ShopSize.x / 2 + CScroll_Manager::Get_Scroll(CScroll_Manager::X), ShopSize.y / 2 + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
 
 	matWorld = matScale * matTrans;
 
 	CGraphic_Device::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
 	CGraphic_Device::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture, nullptr, &vCenter, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+
 	CGameObject_Manager::Get_Instance()->Render_GameObject();
 }
 

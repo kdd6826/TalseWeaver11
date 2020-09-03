@@ -1,9 +1,9 @@
 #pragma once
-class CScene; 
+class CScene;
 class CScene_Manager
 {
 public:
-	enum SCENE { SCENE_LOGO, SCENE_STAGE, SCENE_BOSS, SCENE_END};
+	enum SCENE { SCENE_LOGO, SCENE_STAGE, SCENE_TOWN1, SCENE_BOSS, SCENE_END };
 	DECLARE_SINGLETON(CScene_Manager)
 private:
 	CScene_Manager();
@@ -16,8 +16,8 @@ public:
 	void Render_Scene();
 	void Release_Scene();
 private:
-	SCENE m_eCurScene; 
-	SCENE m_eNextScene; 
-	CScene* m_pScene; 
+	SCENE m_eCurScene;
+	SCENE m_eNextScene;
+	CScene* m_pScene;
 };
 

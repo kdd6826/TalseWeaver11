@@ -10,16 +10,16 @@ CGameObject_Manager::CGameObject_Manager()
 
 CGameObject_Manager::~CGameObject_Manager()
 {
-	Release_GameObject(); 
+	Release_GameObject();
 }
 
-HRESULT CGameObject_Manager::Add_GameObject(OBJ::ID eID, CGameObject * pObject)
+HRESULT CGameObject_Manager::Add_GameObject(OBJ::ID eID, CGameObject* pObject)
 {
-	if(nullptr == pObject || OBJ::OBJ_END <= eID )
+	if (nullptr == pObject || OBJ::OBJ_END <= eID)
 		return E_FAIL;
 
-	m_listGameObject[eID].emplace_back(pObject); 
-	return S_OK; 
+	m_listGameObject[eID].emplace_back(pObject);
+	return S_OK;
 }
 
 HRESULT CGameObject_Manager::Ready_GameObject()
@@ -29,9 +29,9 @@ HRESULT CGameObject_Manager::Ready_GameObject()
 
 int CGameObject_Manager::Update_GameObject()
 {
-	for (int i = 0 ; i < OBJ::OBJ_END ; ++i)
+	for (int i = 0; i < OBJ::OBJ_END; ++i)
 	{
-		for (OBJITER iter = m_listGameObject[i].begin(); iter != m_listGameObject[i].end() ; )
+		for (OBJITER iter = m_listGameObject[i].begin(); iter != m_listGameObject[i].end(); )
 		{
 			int iEvent = (*iter)->Update_GameObject();
 			if (OBJ_DEAD == iEvent)
@@ -40,7 +40,7 @@ int CGameObject_Manager::Update_GameObject()
 				iter = m_listGameObject[i].erase(iter);
 			}
 			else
-				++iter; 
+				++iter;
 		}
 	}
 	return 0;
@@ -48,11 +48,11 @@ int CGameObject_Manager::Update_GameObject()
 
 void CGameObject_Manager::LateUpdate_GameObject()
 {
-	for (int i = 0 ; i < OBJ::OBJ_END; ++i)
+	for (int i = 0; i < OBJ::OBJ_END; ++i)
 	{
 		for (auto& pObj : m_listGameObject[i])
 		{
-			pObj->LateUpdate_GameObject(); 
+			pObj->LateUpdate_GameObject();
 		}
 	}
 }
@@ -70,12 +70,12 @@ void CGameObject_Manager::Render_GameObject()
 
 void CGameObject_Manager::Release_GameObject()
 {
-	for (int i = 0 ; i < OBJ::OBJ_END; ++i)
+	for (int i = 0; i < OBJ::OBJ_END; ++i)
 	{
 		for (auto& pObj : m_listGameObject[i])
 		{
 			Safe_Delete(pObj);
 		}
-		m_listGameObject[i].clear(); 
+		m_listGameObject[i].clear();
 	}
 }

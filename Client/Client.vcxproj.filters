@@ -64,6 +64,18 @@
     <Filter Include="02.Manager\ObjManager">
       <UniqueIdentifier>{584a7aab-4864-48ed-bb8f-fa43202a0402}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Manager\Monster_Manager">
+      <UniqueIdentifier>{c55d380a-1ec8-4510-aec9-0ebe5d6d5ff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Monster">
+      <UniqueIdentifier>{b7bda4ad-5839-4ff0-bb75-7a297fca9cc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Monster\Monsters">
+      <UniqueIdentifier>{81c7eef4-606a-4b23-943d-06426a2a25eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Town">
+      <UniqueIdentifier>{cc3db7c2-5b85-4f22-acf2-0fa0efbd2699}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -135,6 +147,18 @@
     <ClInclude Include="AStar.h">
       <Filter>01.Obj\Player\Astar</Filter>
     </ClInclude>
+    <ClInclude Include="Monster_Manager.h">
+      <Filter>02.Manager\Monster_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>01.Obj\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueWolf.h">
+      <Filter>01.Obj\Monster\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="Town1.h">
+      <Filter>Scene\Town</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -199,6 +223,18 @@
     </ClCompile>
     <ClCompile Include="AStar.cpp">
       <Filter>01.Obj\Player\Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_Manager.cpp">
+      <Filter>02.Manager\Monster_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>01.Obj\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="BlueWolf.cpp">
+      <Filter>01.Obj\Monster\Monsters</Filter>
+    </ClCompile>
+    <ClCompile Include="Town1.cpp">
+      <Filter>Scene\Town</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

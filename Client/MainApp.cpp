@@ -6,27 +6,28 @@
 #include "AStar.h"
 CMainApp::CMainApp()
 	: m_pGraphic_Device(CGraphic_Device::Get_Instance())
-	,m_pTime_Manager(CTime_Manager::Get_Instance())
+	, m_pTime_Manager(CTime_Manager::Get_Instance())
 {
 }
 
 
 CMainApp::~CMainApp()
 {
-	Release_MainApp(); 
+	Release_MainApp();
 }
 
 void CMainApp::Ready_MainApp()
 {
 	m_pTime_Manager->Ready_TimeManager();
 	if (FAILED(CGraphic_Device::Get_Instance()->Ready_Graphic_Device()))
-		return; 
+		return;
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Terrain/Tile/Tile%d.png", L"Terrain", L"Tile", 11)))
 		return;
 
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Map/Map%d.png", L"TextureEtc", L"Map", 5)))
-		return; 
+		return;
 
+	//플레이어
 	//STAND
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/STAND_DOWN/STAND_DOWN%d.png", L"Player", L"STAND_DOWN", 10)))
 		return;
@@ -51,8 +52,35 @@ void CMainApp::Ready_MainApp()
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/RUN_UP/RUN_UP%d.png", L"Player", L"RUN_UP", 8)))
 		return;
 
+	//ATTACK
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_DOWN/ATTACK1_DOWN%d.png", L"Player", L"ATTACK1_DOWN", 13)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_LDOWN/ATTACK1_LDOWN%d.png", L"Player", L"ATTACK1_LDOWN", 8)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_LEFT/ATTACK1_LEFT%d.png", L"Player", L"ATTACK1_LEFT", 8)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_LUP/ATTACK1_LUP%d.png", L"Player", L"ATTACK1_LUP", 8)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_UP/ATTACK1_UP%d.png", L"Player", L"ATTACK1_UP", 8)))
+		return;
 
-	CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_STAGE); 
+
+
+
+
+
+
+	//몬스터
+	//BLUEWOLF
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/BlueWolf/STAND_LDOWN/Stand_LDown%d.png", L"BlueWolf", L"Stand_LDown", 6)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/BlueWolf/STAND_LUP/Stand_LUp%d.png", L"BlueWolf", L"Stand_LUp", 6)))
+		return;
+
+
+	CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_TOWN1);
+
+
 }
 
 void CMainApp::Update_MainApp()
@@ -69,8 +97,8 @@ void CMainApp::Late_Update_MainApp()
 
 void CMainApp::Render_MainApp(CFrame_Manager* pFrameManager)
 {
-	m_pGraphic_Device->Render_Begin(); 
-	CScene_Manager::Get_Instance()->Render_Scene(); 
+	m_pGraphic_Device->Render_Begin();
+	CScene_Manager::Get_Instance()->Render_Scene();
 	pFrameManager->Render_FrameManager();
 	m_pGraphic_Device->Render_End();
 }
@@ -80,7 +108,7 @@ void CMainApp::Release_MainApp()
 	CAStar::Destroy_Instance();
 	m_pTime_Manager->Destroy_Instance();
 	CGameObject_Manager::Destroy_Instance();
-	CScene_Manager::Destroy_Instance(); 
-	CTexture_Manager::Destroy_Instance(); 
+	CScene_Manager::Destroy_Instance();
+	CTexture_Manager::Destroy_Instance();
 	m_pGraphic_Device->Destroy_Instance();
 }
