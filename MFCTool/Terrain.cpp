@@ -141,7 +141,7 @@ void CTerrain::MiniRender_Terrain()
 
 void CTerrain::Render_Terrain()
 {
-	const TEXINFO* pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"TextureEtc", L"Map", 2);
+	const TEXINFO* pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"TextureEtc", L"Map", 0);
 
 	if (nullptr == pTexInfo)
 		return;
@@ -149,7 +149,7 @@ void CTerrain::Render_Terrain()
 
 	_matrix matScale, matTrans, matWorld;
 	D3DXMatrixScaling(&matScale, 1.f, 1.f, 0.f);
-	D3DXMatrixTranslation(&matTrans, Town1Size.x / 2 - m_pView->GetScrollPos(0), Town1Size.y / 2 - m_pView->GetScrollPos(1), 0.f);
+	D3DXMatrixTranslation(&matTrans, ShopSize.x / 2 - m_pView->GetScrollPos(0), ShopSize.y / 2 - m_pView->GetScrollPos(1), 0.f);
 
 	matWorld = matScale * matTrans;
 

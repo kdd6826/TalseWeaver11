@@ -21,7 +21,7 @@ public:
 	virtual void Render_GameObject() override;
 	virtual void Release_GameObject() override;
 public:
-	static CGameObject* Create(void* pArg = nullptr); 
+	static CGameObject* Create(wstring PathKeyWord); 
 private:
 	vector<TILE*> m_vecTile; 
 	vector<list<TILE*>> m_vecGraph;

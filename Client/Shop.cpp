@@ -1,40 +1,40 @@
 #include "stdafx.h"
-#include "Stage.h"
+#include "Shop.h"
 #include "Terrain.h"
 #include "Player.h"
 #include "Monster.h"
 #include "BlueWolf.h"
-CStage::CStage()
+CShop::CShop()
 {
 }
 
 
-CStage::~CStage()
+CShop::~CShop()
 {
 	Release_Scene();
 }
 
-HRESULT CStage::Ready_Scene()
+HRESULT CShop::Ready_Scene()
 {
-	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create());
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create(L"../Data/ShopData.dat"));
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER, CPlayer::Create());
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create());
 	return S_OK;
 }
 
-void CStage::Update_Scene()
+void CShop::Update_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Update_GameObject();
 
 }
 
-void CStage::LateUpdate_Scene()
+void CShop::LateUpdate_Scene()
 {
 	CGameObject_Manager::Get_Instance()->LateUpdate_GameObject();
 	CScroll_Manager::Scroll_Lock(ShopSize);
 }
 
-void CStage::Render_Scene()
+void CShop::Render_Scene()
 {
 
 	const TEXINFO* pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"TextureEtc", L"Map", 0);
@@ -55,7 +55,7 @@ void CStage::Render_Scene()
 	CGameObject_Manager::Get_Instance()->Render_GameObject();
 }
 
-void CStage::Release_Scene()
+void CShop::Release_Scene()
 {
 
 }

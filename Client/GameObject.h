@@ -18,12 +18,16 @@ public:
 	void SetPos(_vec3& _pos) {
 		m_tInfo.vPos = _pos;
 	}
+	const TEXINFO* GetTexInfo() { return pTexInfo; }
+	
 protected:
 	OBJ::ID m_ObjId = OBJ::OBJ_END;
 	wstring m_szFrameKey;
 	float m_fSpeed = 0.f;
 	float m_fAngle = 0.f;
 	INFO m_tInfo;
+	
 	FRAME m_tFrame;
+	const TEXINFO* pTexInfo;
 };
 

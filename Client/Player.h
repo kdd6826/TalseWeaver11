@@ -31,7 +31,7 @@ private:
 
 	bool isMoving = false;
 	bool isAttack = false;
-	_float m_iAttackTime = 0;
+	_float m_fAttackTime = 0;
 	bool isMovingCount = false;
 };
 

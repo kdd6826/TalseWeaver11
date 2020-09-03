@@ -78,7 +78,7 @@ void CMainApp::Ready_MainApp()
 		return;
 
 
-	CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_TOWN1);
+	CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_SHOP);
 
 
 }

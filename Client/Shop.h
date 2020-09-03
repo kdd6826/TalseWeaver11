@@ -1,12 +1,12 @@
 #pragma once
 #include "Scene.h"
 #include "Monster_Manager.h"
-class CStage :
+class CShop :
 	public CScene
 {
 public:
-	CStage();
-	virtual ~CStage();
+	CShop();
+	virtual ~CShop();
 public:
 	// CScene을(를) 통해 상속됨
 	virtual HRESULT Ready_Scene() override;

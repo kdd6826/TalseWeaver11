@@ -183,11 +183,12 @@ void CTerrain::Release_GameObject()
 // 	}
 }
 
-CGameObject * CTerrain::Create(void* pArg/*= nullptr*/)
+CGameObject * CTerrain::Create(wstring PathKeyWord)
 {
 	CGameObject* pInstnace = new CTerrain; 
 	if (FAILED(pInstnace->Ready_GameObject()))
 		return nullptr; 
-	dynamic_cast<CTerrain*>(pInstnace)->ReadTerrinData(L"../Data/TileData.dat");
+	
+	dynamic_cast<CTerrain*>(pInstnace)->ReadTerrinData(PathKeyWord);
 	return pInstnace;
 }

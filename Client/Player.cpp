@@ -108,15 +108,17 @@ HRESULT CPlayer::Ready_GameObject()
 	///////
 	m_szFrameKey = L"STAND_LEFT";
 	m_tFrame = { 0.f, 5.f };
-	m_fSpeed = 5.f;
+	m_fSpeed = 2.f;
 	m_fAngle = 0.f;
+	
+	
 	return S_OK;
 }
 
 int CPlayer::Update_GameObject()
 {
 
-	MoveFrame(2.f);
+	MoveFrame(m_fSpeed);
 
 
 
@@ -166,26 +168,29 @@ int CPlayer::Update_GameObject()
 		m_DirectionKey = L"LDOWN";
 	}
 
-	if (!isMoving)
+	if (!isMoving&&!isAttack)
 	{
+		
 		if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_D))
 		{
 			isAttack = true;
-			m_iAttackTime = 0;
+			m_fAttackTime = 0;
 			m_tFrame.fFrameStart = 0;
 		}
 	}
 	if (isAttack)
 	{
 
-		if (m_iAttackTime < 3)
+		if (m_fAttackTime < 2.1)
 		{
-			m_iAttackTime += 0.1;
+			m_fSpeed = 10.f;
+			m_fAttackTime += 0.1;
 			m_StateKey = L"ATTACK1_";
 
 		}
 		else
 		{
+			m_fSpeed = 2.f;
 			isAttack = false;
 			m_StateKey = L"STAND_";
 		}
@@ -220,7 +225,7 @@ void CPlayer::LateUpdate_GameObject()
 void CPlayer::Render_GameObject()
 {
 
-	const TEXINFO* pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"Player", m_szFrameKey, DWORD(m_tFrame.fFrameStart));
+	pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"Player", m_szFrameKey, DWORD(m_tFrame.fFrameStart));
 
 	if (nullptr == pTexInfo)
 		return;

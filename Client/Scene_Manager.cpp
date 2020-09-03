@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Scene_Manager.h"
-#include "Stage.h"
+#include "Shop.h"
 #include "Town1.h"
 IMPLEMENT_SINGLETON(CScene_Manager)
 CScene_Manager::CScene_Manager()
@@ -27,8 +27,8 @@ HRESULT CScene_Manager::Change_Scene(SCENE eNextScene)
 		case CScene_Manager::SCENE_LOGO:
 			// »ý¼º 
 			break;
-		case CScene_Manager::SCENE_STAGE:
-			m_pScene = new CStage;
+		case CScene_Manager::SCENE_SHOP:
+			m_pScene = new CShop;
 			break;
 		case CScene_Manager::SCENE_TOWN1:
 			m_pScene = new CTown1;

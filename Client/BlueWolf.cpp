@@ -13,7 +13,7 @@ CBlueWolf::~CBlueWolf()
 
 HRESULT CBlueWolf::Ready_GameObject()
 {
-	m_tInfo.vPos = { 1100.f, 300.f, 0.f };
+	m_tInfo.vPos = { 1100.f, 600.f, 0.f };
 
 	m_tInfo.vSize = { 1.f, 1.f, 0.f };
 	//////
@@ -24,6 +24,7 @@ HRESULT CBlueWolf::Ready_GameObject()
 	m_tFrame = { 0.f, 5.f };
 	m_fSpeed = 2.f;
 	m_fAngle = 0.f;
+
 	return S_OK;
 }
 
@@ -42,7 +43,7 @@ void CBlueWolf::LateUpdate_GameObject()
 void CBlueWolf::Render_GameObject()
 {
 
-	const TEXINFO* pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"BlueWolf", m_szFrameKey, DWORD(m_tFrame.fFrameStart));
+	pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"BlueWolf", m_szFrameKey, DWORD(m_tFrame.fFrameStart));
 
 	if (nullptr == pTexInfo)
 		return;
