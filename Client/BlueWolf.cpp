@@ -80,3 +80,12 @@ CGameObject* CBlueWolf::Create(LPVOID* pArg)
 		return nullptr;
 	return pInstnace;
 }
+
+CGameObject* CBlueWolf::Create(_vec3 vpos)
+{
+	CGameObject* pInstnace = new CBlueWolf;
+	if (FAILED(pInstnace->Ready_GameObject()))
+		return nullptr;
+	pInstnace->SetPos(vpos);
+	return pInstnace;
+}

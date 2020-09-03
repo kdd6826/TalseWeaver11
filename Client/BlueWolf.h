@@ -16,5 +16,6 @@ public:
 	void MoveFrame(_float fSpeed = 1.f);
 public:
 	static CGameObject* Create(LPVOID* pArg = nullptr);
+	static CGameObject* Create(_vec3 vpos);
 };
 
