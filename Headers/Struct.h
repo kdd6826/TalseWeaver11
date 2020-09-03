@@ -1,6 +1,8 @@
 #pragma once
+#include "Enum.h"
 typedef struct tagInfo
 {
+	TCHAR chName[32];
 	D3DXVECTOR3 vPos;  // À§Ä¡º¤ÅÍ 
 	D3DXVECTOR3 vDir; // ¹æÇâº¤ÅÍ 
 	D3DXVECTOR3 vSize; // Å©±â Ç¥ÇöÇÒ ³ð. 
@@ -17,24 +19,24 @@ typedef struct tagTexture
 
 typedef struct tagTile
 {
-	_vec3	vPos; 
-	_vec3	vSize; 
+	_vec3	vPos;
+	_vec3	vSize;
 	_int	iIndex;
 	_int	iParentIndex;
-	_uint	iDrawID; 
-	_int	iOption; 
+	_uint	iDrawID;
+	_int	iOption;
 }TILE;
 
 typedef struct tagUnitInfo
 {
 #ifdef _AFX
-	CString strName; 
+	CString strName;
 #else
-	wstring wstrName; 
+	wstring wstrName;
 #endif
-	int		iAtt; 
-	int		iDef; 
-	BYTE	byJopIndex; 
+	int		iAtt;
+	int		iDef;
+	BYTE	byJopIndex;
 	BYTE	byItem;
 }UNITINFO;
 
@@ -43,3 +45,10 @@ typedef struct tagFrame
 	_float fFrameStart;
 	_float fFrameEnd;
 }FRAME;
+
+typedef struct tagMonster {
+	tagMonster(MONSTER::ID _monster, _vec3 _pos, DWORD _timer) : monster(_monster), pos(_pos), timer(_timer) {}
+	MONSTER::ID monster;
+	_vec3 pos;
+	DWORD timer;
+}MONSTERDATA;

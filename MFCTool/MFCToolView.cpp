@@ -24,7 +24,7 @@
 
 
 // CMFCToolView
-HWND g_hWND; 
+HWND g_hWND;
 IMPLEMENT_DYNCREATE(CMFCToolView, CScrollView)
 
 BEGIN_MESSAGE_MAP(CMFCToolView, CScrollView)
@@ -33,6 +33,7 @@ BEGIN_MESSAGE_MAP(CMFCToolView, CScrollView)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CScrollView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CScrollView::OnFilePrintPreview)
 	ON_WM_LBUTTONDOWN()
+	ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CMFCToolView 생성/소멸
@@ -40,13 +41,13 @@ END_MESSAGE_MAP()
 CMFCToolView::CMFCToolView()
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
-	
+
 }
 
 CMFCToolView::~CMFCToolView()
 {
-	CGraphic_Device::Destroy_Instance(); 
-	CTexture_Manager::Destroy_Instance(); 
+	CGraphic_Device::Destroy_Instance();
+	CTexture_Manager::Destroy_Instance();
 	Safe_Delete(m_pTerrain);
 }
 
@@ -66,9 +67,9 @@ void CMFCToolView::OnDraw(CDC* /*pDC*/)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-	CGraphic_Device::Get_Instance()->Render_Begin(); 
+	CGraphic_Device::Get_Instance()->Render_Begin();
 	m_pTerrain->Render_Terrain();
-	CGraphic_Device::Get_Instance()->Render_End(); 
+	CGraphic_Device::Get_Instance()->Render_End();
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
 // 	pDC->Rectangle(100, 100, 200, 200);
 // 	pDC->Ellipse(100, 100, 200, 200);
@@ -121,45 +122,48 @@ CMFCToolDoc* CMFCToolView::GetDocument() const // 디버그되지 않은 버전은 인라인�
 void CMFCToolView::OnInitialUpdate()
 {
 	CScrollView::OnInitialUpdate();
-	
-	SetScrollSizes(MM_TEXT,CSize(TILECX * TILEX, (TILECY >> 1) * TILEY));
+
+	SetScrollSizes(MM_TEXT, CSize(TILECX * TILEX, (TILECY >> 1) * TILEY));
 	CMainFrame* pMain = dynamic_cast<CMainFrame*>(::AfxGetApp()->GetMainWnd());
-	RECT rcMain = {}; 
+	RECT rcMain = {};
 
 	pMain->GetWindowRect(&rcMain);
 
 	SetRect(&rcMain, 0, 0, rcMain.right - rcMain.left, rcMain.bottom - rcMain.top);
 
 	//View 
-	RECT rcView = {}; 
-	GetClientRect(&rcView); ; 
+	RECT rcView = {};
+	GetClientRect(&rcView); ;
 	//1440, 760
 	//1420, 698
-	float fXGap = rcMain.right - float(rcView.right); 
-	float fYGap =  WINCY+ (float(rcMain.bottom) - rcView.bottom); 
-	
-	pMain->SetWindowPos(nullptr, 0, 0, LONG(WINCX + fXGap),LONG(fYGap), SWP_NOZORDER);
+	float fXGap = rcMain.right - float(rcView.right);
+	float fYGap = WINCY + (float(rcMain.bottom) - rcView.bottom);
 
-	
+	pMain->SetWindowPos(nullptr, 0, 0, LONG(WINCX + fXGap), LONG(fYGap), SWP_NOZORDER);
+
+
 
 
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
-	g_hWND = m_hWnd; 
+	g_hWND = m_hWnd;
 	if (FAILED(CGraphic_Device::Get_Instance()->Ready_Graphic_Device()))
 	{
-		ERR_MSG(L"그래픽 디바이스 생성 실패..."); 
-		return; 
+		ERR_MSG(L"그래픽 디바이스 생성 실패...");
+		return;
 	}
-	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_SINGLE, L"../Texture/Cube.png", L"Cube")))
-		return; 
+
 
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Terrain/Tile/Tile%d.png", L"Terrain", L"Tile", 11)))
 		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Map/Map%d.png", L"TextureEtc", L"Map", 5)))
+		return;
+
+
 
 	if (nullptr == m_pTerrain)
 	{
-		m_pTerrain = new CTerrain; 
-		m_pTerrain->Ready_Terrain(); 
+		m_pTerrain = new CTerrain;
+		m_pTerrain->Ready_Terrain();
 		m_pTerrain->Set_View(this);
 	}
 }
@@ -168,19 +172,41 @@ void CMFCToolView::OnInitialUpdate()
 void CMFCToolView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-	int i = 0; 
-// 	TCHAR szMouseBuf[54]= L""; 
-// 	swprintf_s(szMouseBuf, L"Point.x : %d, Point.y : %d", point.x, point.y);
-// 	ERR_MSG(szMouseBuf);
+	int i = 0;
+	// 	TCHAR szMouseBuf[54]= L""; 
+	// 	swprintf_s(szMouseBuf, L"Point.x : %d, Point.y : %d", point.x, point.y);
+	// 	ERR_MSG(szMouseBuf);
 	CMainFrame* pMain = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
 	CForm* pForm = dynamic_cast<CForm*>(pMain->m_SecondSplitter.GetPane(1, 0));
 	_int iDrawID = pForm->m_tMapTool.m_iDrawID;
-	_vec3 vMouse = { float(point.x) + GetScrollPos(0), float(point.y) + GetScrollPos(1), 0.f }; 
+	_vec3 vMouse = { float(point.x) + GetScrollPos(0), float(point.y) + GetScrollPos(1), 0.f };
 
-	m_pTerrain->TileChange(vMouse, iDrawID,1);
-	
-	CMiniView* pMiniView = dynamic_cast<CMiniView*>(pMain->m_SecondSplitter.GetPane(0, 0)); 
+	m_pTerrain->TileChange(vMouse, 1, 1);
+
+	CMiniView* pMiniView = dynamic_cast<CMiniView*>(pMain->m_SecondSplitter.GetPane(0, 0));
 	pMiniView->InvalidateRect(nullptr, 0);
 	InvalidateRect(nullptr, 0);
 	CScrollView::OnLButtonDown(nFlags, point);
+}
+
+
+
+void CMFCToolView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	int i = 0;
+	// 	TCHAR szMouseBuf[54]= L""; 
+	// 	swprintf_s(szMouseBuf, L"Point.x : %d, Point.y : %d", point.x, point.y);
+	// 	ERR_MSG(szMouseBuf);
+	CMainFrame* pMain = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
+	CForm* pForm = dynamic_cast<CForm*>(pMain->m_SecondSplitter.GetPane(1, 0));
+	_int iDrawID = pForm->m_tMapTool.m_iDrawID;
+	_vec3 vMouse = { float(point.x) + GetScrollPos(0), float(point.y) + GetScrollPos(1), 0.f };
+
+	m_pTerrain->TileChange(vMouse, 4, 0);
+
+	CMiniView* pMiniView = dynamic_cast<CMiniView*>(pMain->m_SecondSplitter.GetPane(0, 0));
+	pMiniView->InvalidateRect(nullptr, 0);
+	InvalidateRect(nullptr, 0);
+	CScrollView::OnRButtonDown(nFlags, point);
 }

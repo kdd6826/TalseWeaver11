@@ -20,17 +20,18 @@ public:
 public:
 	static CGameObject* Create(LPVOID* pArg = nullptr);
 private:
-	INFO m_tInfo; 
-	float m_fSpeed = 0.f; 
-	float m_fAngle = 0.f; 
-	FRAME m_tFrame;
+	/*INFO m_tInfo; */
+
+	//FRAME m_tFrame;
 	_matrix m_matRotate;
 	int m_iMirror = 1;
 	wstring m_StateKey;
 	wstring m_DirectionKey;
-	wstring m_szFrameKey;
+
 
 	bool isMoving = false;
+	bool isAttack = false;
+	_float m_iAttackTime = 0;
 	bool isMovingCount = false;
 };
 

@@ -40,13 +40,14 @@ extern HWND g_hWND;
 #define OBJ_NOEVENT 0 
 #define WINCX 800
 #define WINCY 600
-#define TILECX 50
-#define TILECY 30
+#define TILECX 100
+#define TILECY 60
 #define TILEX 30
 #define TILEY 60
 
-const _vec3 ShopSize = { 1430.f,867.f,0.f };
 
+const _vec3 ShopSize = { 1430.f,867.f,0.f };
+const _vec3 Town1Size = { 1600.f,1200.f,0.f };
 
 #define ∞≠√∂∞À	0x01	//0000 0001
 #define ¡ˆ∆Œ¿Ã	0x02	//0000 0010 
