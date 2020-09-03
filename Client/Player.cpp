@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "KeyManager.h"
 #include "AStar.h"
+#include "Scene_Manager.h"
 CPlayer::CPlayer()
 {
 	m_ObjId = OBJ::OBJ_PLAYER;
@@ -118,6 +119,14 @@ HRESULT CPlayer::Ready_GameObject()
 int CPlayer::Update_GameObject()
 {
 
+	if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_F10))
+	{
+		CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_TOWN1);
+	}
+	if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_F9))
+	{
+		CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_SHOP);
+	}
 	MoveFrame(m_fSpeed);
 
 

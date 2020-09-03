@@ -79,6 +79,9 @@
     <Filter Include="02.Manager\Collision_Manager">
       <UniqueIdentifier>{4fa617a2-ae8d-4d44-9318-92da6d4de79c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\Tutorial">
+      <UniqueIdentifier>{04252d41-f6e6-494a-9d35-5ef3804df293}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -162,6 +165,9 @@
     <ClInclude Include="Shop.h">
       <Filter>Scene\Shop</Filter>
     </ClInclude>
+    <ClInclude Include="Tutorial.h">
+      <Filter>Scene\Tutorial</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -238,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="Shop.cpp">
       <Filter>Scene\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Tutorial.cpp">
+      <Filter>Scene\Tutorial</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

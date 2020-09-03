@@ -183,6 +183,7 @@
     <ClInclude Include="Texture_Manager.h" />
     <ClInclude Include="Time_Manager.h" />
     <ClInclude Include="Town1.h" />
+    <ClInclude Include="Tutorial.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AStar.cpp" />
@@ -215,6 +216,7 @@
     <ClCompile Include="Texture_Manager.cpp" />
     <ClCompile Include="Time_Manager.cpp" />
     <ClCompile Include="Town1.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

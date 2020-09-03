@@ -2,6 +2,7 @@
 #include "Scene_Manager.h"
 #include "Shop.h"
 #include "Town1.h"
+#include "Tutorial.h"
 IMPLEMENT_SINGLETON(CScene_Manager)
 CScene_Manager::CScene_Manager()
 	:m_eCurScene(SCENE_END)
@@ -27,13 +28,16 @@ HRESULT CScene_Manager::Change_Scene(SCENE eNextScene)
 		case CScene_Manager::SCENE_LOGO:
 			// »ý¼º 
 			break;
+		case CScene_Manager::SCENE_TUTORIAL:
+			m_pScene = new CTutorial;
+			break;
 		case CScene_Manager::SCENE_SHOP:
 			m_pScene = new CShop;
 			break;
 		case CScene_Manager::SCENE_TOWN1:
 			m_pScene = new CTown1;
 			break;
-
+			
 
 		case CScene_Manager::SCENE_BOSS:
 			break;

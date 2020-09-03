@@ -3,7 +3,7 @@ class CScene;
 class CScene_Manager
 {
 public:
-	enum SCENE { SCENE_LOGO, SCENE_SHOP, SCENE_TOWN1, SCENE_BOSS, SCENE_END};
+	enum SCENE { SCENE_LOGO,SCENE_TUTORIAL, SCENE_SHOP, SCENE_TOWN1, SCENE_BOSS, SCENE_END};
 	DECLARE_SINGLETON(CScene_Manager)
 private:
 	CScene_Manager();

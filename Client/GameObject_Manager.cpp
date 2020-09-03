@@ -79,3 +79,15 @@ void CGameObject_Manager::Release_GameObject()
 		m_listGameObject[i].clear();
 	}
 }
+
+void CGameObject_Manager::Release_GameObject(OBJ::ID OBJ_ID)
+{
+	for (int i = OBJ_ID; i < OBJ_ID+1; ++i)
+	{
+		for (auto& pObj : m_listGameObject[i])
+		{
+			Safe_Delete(pObj);
+		}
+		m_listGameObject[i].clear();
+	}
+}

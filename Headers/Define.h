@@ -48,7 +48,7 @@ extern HWND g_hWND;
 
 const _vec3 ShopSize = { 1430.f,867.f,0.f };
 const _vec3 Town1Size = { 1600.f,1200.f,0.f };
-
+const _vec3 TutorialSize = { 3222.f,1677.f,0.f };
 #define 강철검	0x01	//0000 0001
 #define 지팡이	0x02	//0000 0010 
 #define 나이프	0x04	//0000 0100

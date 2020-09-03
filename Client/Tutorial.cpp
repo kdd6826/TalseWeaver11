@@ -1,43 +1,45 @@
 #include "stdafx.h"
-#include "Town1.h"
+#include "Tutorial.h"
 #include "Terrain.h"
 #include "Player.h"
 #include "Monster.h"
 #include "BlueWolf.h"
-CTown1::CTown1()
+CTutorial::CTutorial()
 {
 }
 
 
-CTown1::~CTown1()
+CTutorial::~CTutorial()
 {
 	Release_Scene();
 }
 
-HRESULT CTown1::Ready_Scene()
+HRESULT CTutorial::Ready_Scene()
 {
-	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create(L"../Data/TileData.dat"));
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create(L"../Data/TutorialData.dat"));
 
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER, CPlayer::Create());
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create());
+	
 	return S_OK;
 }
 
-void CTown1::Update_Scene()
+void CTutorial::Update_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Update_GameObject();
 
 }
 
-void CTown1::LateUpdate_Scene()
+void CTutorial::LateUpdate_Scene()
 {
 	CGameObject_Manager::Get_Instance()->LateUpdate_GameObject();
-	CScroll_Manager::Scroll_Lock(Town1Size);
+	CScroll_Manager::Scroll_Lock(TutorialSize);
 }
 
-void CTown1::Render_Scene()
+void CTutorial::Render_Scene()
 {
 
-	const TEXINFO* pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"TextureEtc", L"Map", 2);
+	const TEXINFO* pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"TextureEtc", L"Map", 3);
 
 	if (nullptr == pTexInfo)
 		return;
@@ -45,7 +47,7 @@ void CTown1::Render_Scene()
 
 	_matrix matScale, matTrans, matWorld;
 	D3DXMatrixScaling(&matScale, 1.f, 1.f, 0.f);
-	D3DXMatrixTranslation(&matTrans, Town1Size.x / 2 + CScroll_Manager::Get_Scroll(CScroll_Manager::X), Town1Size.y / 2 + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
+	D3DXMatrixTranslation(&matTrans, TutorialSize.x / 2 + CScroll_Manager::Get_Scroll(CScroll_Manager::X), TutorialSize.y / 2 + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
 
 	matWorld = matScale * matTrans;
 
@@ -55,7 +57,7 @@ void CTown1::Render_Scene()
 	CGameObject_Manager::Get_Instance()->Render_GameObject();
 }
 
-void CTown1::Release_Scene()
+void CTutorial::Release_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_TERRAIN);
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_MONSTER);

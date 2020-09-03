@@ -78,8 +78,7 @@ void CMainApp::Ready_MainApp()
 		return;
 
 
-	CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_SHOP);
-
+	CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_TUTORIAL);
 
 }
 

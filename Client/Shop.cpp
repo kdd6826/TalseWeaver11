@@ -17,7 +17,7 @@ CShop::~CShop()
 HRESULT CShop::Ready_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create(L"../Data/ShopData.dat"));
-	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER, CPlayer::Create());
+		
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create());
 	return S_OK;
 }
@@ -57,5 +57,6 @@ void CShop::Render_Scene()
 
 void CShop::Release_Scene()
 {
-
+	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_TERRAIN);
+	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_MONSTER);
 }

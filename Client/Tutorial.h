@@ -1,12 +1,11 @@
 #pragma once
 #include "Scene.h"
-#include "Monster_Manager.h"
-class CShop :
+class CTutorial :
 	public CScene
 {
 public:
-	CShop();
-	virtual ~CShop();
+	CTutorial();
+	virtual ~CTutorial();
 public:
 	// CScene을(를) 통해 상속됨
 	virtual HRESULT Ready_Scene() override;
@@ -16,8 +15,5 @@ public:
 	virtual void Release_Scene() override;
 public:
 	CGameObject_Manager* ObjManager = CGameObject_Manager::Get_Instance();
-	CMonsterManager MonsterManager;
-
-	int m_iCreateCount;
 };
 

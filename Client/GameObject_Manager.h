@@ -17,6 +17,7 @@ public:
 	void	LateUpdate_GameObject();
 	void	Render_GameObject();
 	void	Release_GameObject();
+	void	Release_GameObject(OBJ::ID OBJ_ID);
 private:
 	typedef list<CGameObject*> OBJLIST;
 	typedef list<CGameObject*>::iterator OBJITER;
