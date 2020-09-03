@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="99.Default">
+      <UniqueIdentifier>{819db3d9-5566-46a6-a739-547d2c5dac41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainApp">
+      <UniqueIdentifier>{d9473fa6-4d5a-429f-8f60-6f903f6710c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{817fc86c-6c4d-4e03-8083-81b66e2b4f3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Manager">
+      <UniqueIdentifier>{2bab8ae4-483e-40fc-a29f-6d91ce63e6c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Stage">
+      <UniqueIdentifier>{927b4e96-fdce-4404-8b41-ac71b826cf74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic_Device">
+      <UniqueIdentifier>{e16d32cf-8af5-415b-8b1b-f50931de0134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{c3d673f6-6fed-4a58-8bc7-3f003a9a83c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture\Manager">
+      <UniqueIdentifier>{1221db9e-07f2-4937-857e-65e305f3ee9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture\MultiTex">
+      <UniqueIdentifier>{00dc2b52-7cef-4cc2-b08e-18295b09ffcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture\SingleTex">
+      <UniqueIdentifier>{1dc3cfea-593b-4386-a677-a76f24351d11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Manager">
+      <UniqueIdentifier>{6c7c8f0d-ac27-490d-907f-60a7ed6d5cd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj">
+      <UniqueIdentifier>{86767966-f03d-4518-86d8-34f02a09a2c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Player">
+      <UniqueIdentifier>{77012914-c9b3-4f83-9ff7-733bf073700f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Terrain">
+      <UniqueIdentifier>{23fe5fcc-4380-4116-8dec-73e5bcfe18d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Manager\Scroll_Manager">
+      <UniqueIdentifier>{033d5a67-986b-4926-819e-83748a367b16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Manager\Key_Manager">
+      <UniqueIdentifier>{b718dd6d-9922-43b4-9e6c-5b0ed05604f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Logo">
+      <UniqueIdentifier>{7d97ca58-77e9-4cd6-ba64-a997aa322a1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Manager\Time_Manager">
+      <UniqueIdentifier>{44c54227-eb05-407e-abc7-eac4cf72c6ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Manager\Frame_Manager">
+      <UniqueIdentifier>{f5895df0-3ad0-4a52-a312-603d54983d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Player\Astar">
+      <UniqueIdentifier>{b6d337d3-6b9c-481c-80c9-58b5f85e08c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Manager\ObjManager">
+      <UniqueIdentifier>{584a7aab-4864-48ed-bb8f-fa43202a0402}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Client.h">
+      <Filter>99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="MainApp.h">
+      <Filter>MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>01.Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>01.Obj\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject_Manager.h">
+      <Filter>02.Manager\ObjManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Manager.h">
+      <Filter>Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic_Device.h">
+      <Filter>Graphic_Device</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture_Manager.h">
+      <Filter>Texture\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiTex.h">
+      <Filter>Texture\MultiTex</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleTex.h">
+      <Filter>Texture\SingleTex</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>01.Obj\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Scroll_Manager.h">
+      <Filter>02.Manager\Scroll_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>02.Manager\Key_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Logo.h">
+      <Filter>Scene\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="Time_Manager.h">
+      <Filter>02.Manager\Time_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame_Manager.h">
+      <Filter>02.Manager\Frame_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="AStar.h">
+      <Filter>01.Obj\Player\Astar</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Client.cpp">
+      <Filter>99.Default</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>99.Default</Filter>
+    </ClCompile>
+    <ClCompile Include="MainApp.cpp">
+      <Filter>MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>01.Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>01.Obj\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject_Manager.cpp">
+      <Filter>02.Manager\ObjManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Manager.cpp">
+      <Filter>Scene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Scene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic_Device.cpp">
+      <Filter>Graphic_Device</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture_Manager.cpp">
+      <Filter>Texture\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiTex.cpp">
+      <Filter>Texture\MultiTex</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleTex.cpp">
+      <Filter>Texture\SingleTex</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>01.Obj\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Scroll_Manager.cpp">
+      <Filter>02.Manager\Scroll_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>02.Manager\Key_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Logo.cpp">
+      <Filter>Scene\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="Time_Manager.cpp">
+      <Filter>02.Manager\Time_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Frame_Manager.cpp">
+      <Filter>02.Manager\Frame_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar.cpp">
+      <Filter>01.Obj\Player\Astar</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Client.ico">
+      <Filter>99.Default</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>99.Default</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>99.Default</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <Filter>99.Default</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
