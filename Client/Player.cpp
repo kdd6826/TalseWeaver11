@@ -177,12 +177,18 @@ int CPlayer::Update_GameObject()
 		m_DirectionKey = L"LDOWN";
 	}
 
-	if (!isMoving&&!isAttack)
+	if (!isMoving&&!isAttack&&!isEvolution)
 	{
 		
 		if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_D))
 		{
 			isAttack = true;
+			m_fAttackTime = 0;
+			m_tFrame.fFrameStart = 0;
+		}
+		if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_S))
+		{
+			isEvolution = true;
 			m_fAttackTime = 0;
 			m_tFrame.fFrameStart = 0;
 		}
@@ -204,7 +210,23 @@ int CPlayer::Update_GameObject()
 			m_StateKey = L"STAND_";
 		}
 	}
+	if (isEvolution)
+	{
 
+		if (m_fAttackTime < 2.1)
+		{
+			m_fSpeed = 5.f;
+			m_fAttackTime += 0.1;
+			m_StateKey = L"EVOLUTION";
+			m_DirectionKey = L"";
+		}
+		else
+		{
+			m_fSpeed = 2.f;
+			isEvolution = false;
+			m_StateKey = L"STAND_";
+		}
+	}
 	if (!isAttack)
 	{
 		if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_LBUTTON))
@@ -228,29 +250,20 @@ void CPlayer::LateUpdate_GameObject()
 {
 	if (isMoving)
 		RouteTrack();
-
 }
 
 void CPlayer::Render_GameObject()
 {
-
 	pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"Player", m_szFrameKey, DWORD(m_tFrame.fFrameStart));
-
 	if (nullptr == pTexInfo)
 		return;
 	_vec3 vCenter = { _float(pTexInfo->tImageInfo.Width >> 1), _float(pTexInfo->tImageInfo.Height >> 1) , 0.f };
-
-
 	_matrix matScale, matTrans, matWorld;
 	D3DXMatrixScaling(&matScale, m_iMirror * m_tInfo.vSize.x, m_tInfo.vSize.y, 0.f);
 	D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x + CScroll_Manager::Get_Scroll(CScroll_Manager::X), m_tInfo.vPos.y + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
-
 	matWorld = matScale * matTrans;
-
 	CGraphic_Device::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
 	CGraphic_Device::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture, nullptr, &vCenter, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
-
-
 }
 
 void CPlayer::Release_GameObject()

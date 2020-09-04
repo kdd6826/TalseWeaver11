@@ -64,10 +64,21 @@ void CMainApp::Ready_MainApp()
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_UP/ATTACK1_UP%d.png", L"Player", L"ATTACK1_UP", 8)))
 		return;
 
+	//REST
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/REST_DOWN/REST_DOWN%d.png", L"Player", L"REST_DOWN", 1)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/REST_LDOWN/REST_LDOWN%d.png", L"Player", L"REST_LDOWN", 1)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/REST_LEFT/REST_LEFT%d.png", L"Player", L"REST_LEFT", 1)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/REST_LUP/REST_LUP%d.png", L"Player", L"REST_LUP", 1)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/REST_UP/REST_UP%d.png", L"Player", L"REST_UP", 1)))
+		return;
 
-
-
-
+	//EVOLUTION
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/EVOLUTION/Evolution0%d.png", L"Player", L"EVOLUTION", 11)))
+		return;
 
 
 	//∏ÛΩ∫≈Õ
