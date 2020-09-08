@@ -168,6 +168,9 @@
     <ClInclude Include="Tutorial.h">
       <Filter>Scene\Tutorial</Filter>
     </ClInclude>
+    <ClInclude Include="Collision_Manager.h">
+      <Filter>02.Manager\Collision_Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -247,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="Tutorial.cpp">
       <Filter>Scene\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision_Manager.cpp">
+      <Filter>02.Manager\Collision_Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

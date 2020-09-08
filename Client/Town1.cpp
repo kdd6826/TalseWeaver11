@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "BlueWolf.h"
+#include "Scene_Manager.h"
 CTown1::CTown1()
 {
 }
@@ -16,9 +17,11 @@ CTown1::~CTown1()
 
 HRESULT CTown1::Ready_Scene()
 {
+	
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create(L"../Data/TileData.dat"));
 
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create());
+
 	return S_OK;
 }
 
@@ -26,6 +29,12 @@ void CTown1::Update_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Update_GameObject();
 
+	_vec3 pos = CGameObject_Manager::Get_Instance()->Get_Player()->GetPos();
+
+	if (pos.x > 365 && pos.x < 465 && pos.y > 475 && pos.y < 525)
+	{
+		CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_SHOP);
+	}
 }
 
 void CTown1::LateUpdate_Scene()
@@ -59,4 +68,5 @@ void CTown1::Release_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_TERRAIN);
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_MONSTER);
+	dynamic_cast<CPlayer*>(CGameObject_Manager::Get_Instance()->Get_Player())->StopAStar();
 }

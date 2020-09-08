@@ -192,3 +192,7 @@ CGameObject * CTerrain::Create(wstring PathKeyWord)
 	dynamic_cast<CTerrain*>(pInstnace)->ReadTerrinData(PathKeyWord);
 	return pInstnace;
 }
+
+void CTerrain::OnCollision(CGameObject* _TargetObj)
+{
+}

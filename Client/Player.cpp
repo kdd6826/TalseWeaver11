@@ -12,6 +12,7 @@ CPlayer::CPlayer()
 
 CPlayer::~CPlayer()
 {
+	Release_GameObject();
 }
 
 void CPlayer::RouteTrack()
@@ -95,6 +96,14 @@ void CPlayer::MoveFrame(_float fSpeed)
 	m_tFrame.fFrameStart += m_tFrame.fFrameEnd * CTime_Manager::Get_Instance()->Get_DeltaTime() * fSpeed;
 	if (m_tFrame.fFrameStart >= m_tFrame.fFrameEnd)
 		m_tFrame.fFrameStart = 0.f;
+}
+
+void CPlayer::StopAStar()
+{
+	list<TILE*>& BestList = CAStar::Get_Instance()->Get_BestList();
+	if (!BestList.empty())
+		BestList.pop_front();
+	return;
 }
 
 HRESULT CPlayer::Ready_GameObject()
@@ -237,6 +246,7 @@ int CPlayer::Update_GameObject()
 			pt.x -= CScroll_Manager::Get_Scroll(CScroll_Manager::X);
 			pt.y -= CScroll_Manager::Get_Scroll(CScroll_Manager::Y);
 			_vec3 vMouse = { float(pt.x), float(pt.y), 0.f };
+			m_tInfo.vPos;
 			CAStar::Get_Instance()->Start_AStar(m_tInfo.vPos, vMouse);
 			isMoving = true;
 		}
@@ -276,4 +286,8 @@ CGameObject* CPlayer::Create(LPVOID* pArg)
 	if (FAILED(pInstnace->Ready_GameObject()))
 		return nullptr;
 	return pInstnace;
+}
+
+void CPlayer::OnCollision(CGameObject* _TargetObj)
+{
 }

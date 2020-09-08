@@ -159,6 +159,7 @@
     <ClInclude Include="AStar.h" />
     <ClInclude Include="BlueWolf.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="Collision_Manager.h" />
     <ClInclude Include="Frame_Manager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObject_Manager.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="BlueWolf.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Collision_Manager.cpp" />
     <ClCompile Include="Frame_Manager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObject_Manager.cpp" />

@@ -15,10 +15,14 @@ public:
     virtual void LateUpdate_GameObject() override;
     virtual void Render_GameObject() override;
     virtual void Release_GameObject() override;
+    virtual void OnCollision(CGameObject* _TargetObj) override;
 public:
     static CGameObject* Create(LPVOID* pArg = nullptr);
 protected:
     INT  m_HP = 1;
     INT  m_MaxHP = 1;
+
+    // CGameObject을(를) 통해 상속됨
+ 
 };
 

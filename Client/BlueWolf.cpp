@@ -9,6 +9,7 @@ CBlueWolf::CBlueWolf()
 
 CBlueWolf::~CBlueWolf()
 {
+	Release_GameObject();
 }
 
 HRESULT CBlueWolf::Ready_GameObject()
@@ -63,6 +64,10 @@ void CBlueWolf::Render_GameObject()
 }
 
 void CBlueWolf::Release_GameObject()
+{
+}
+
+void CBlueWolf::OnCollision(CGameObject* _TargetObj)
 {
 }
 

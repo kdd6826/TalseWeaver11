@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "BlueWolf.h"
+#include "Scene_Manager.h"
 CTutorial::CTutorial()
 {
 }
@@ -27,7 +28,13 @@ HRESULT CTutorial::Ready_Scene()
 void CTutorial::Update_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Update_GameObject();
+	_vec3 pos = CGameObject_Manager::Get_Instance()->Get_Player()->GetPos();
 
+	if (pos.x > 1600 &&pos.x <1700&& pos.y > 900 && pos.y < 950)
+	{
+		CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_TOWN1);
+	}
+	
 }
 
 void CTutorial::LateUpdate_Scene()
@@ -61,4 +68,11 @@ void CTutorial::Release_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_TERRAIN);
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_MONSTER);
+
+	_vec3 pos = { 1000.f,800.f,0.f };
+	CGameObject_Manager::Get_Instance()->Get_Player()->SetPos(pos);
+	CScroll_Manager::Init_ScrollXY();
+	CScroll_Manager::Set_Scroll({ -pos.x / 2,-pos.y / 2,0.f });
+
+	dynamic_cast<CPlayer*>(CGameObject_Manager::Get_Instance()->Get_Player())->StopAStar();
 }
