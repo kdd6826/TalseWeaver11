@@ -6,6 +6,7 @@ typedef struct tagInfo
 	D3DXVECTOR3 vPos;  // 위치벡터 
 	D3DXVECTOR3 vDir; // 방향벡터 
 	D3DXVECTOR3 vSize; // 크기 표현할 놈. 
+	D3DXVECTOR3 vRealSize; // 실제 크기 표현할 놈. 
 	D3DXVECTOR3 vLook;
 	D3DXMATRIX mat;
 }INFO;

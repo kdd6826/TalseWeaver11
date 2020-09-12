@@ -12,7 +12,7 @@ public:
 	virtual void LateUpdate_GameObject() override;
 	virtual void Render_GameObject() override;
 	virtual void Release_GameObject() override;
-	virtual void OnCollision(CGameObject* _TargetObj) override;
+	
 public:
 	void MoveFrame(_float fSpeed = 1.f);
 public:

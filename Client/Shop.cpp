@@ -20,7 +20,7 @@ HRESULT CShop::Ready_Scene()
 	
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create(L"../Data/ShopData.dat"));
 		
-	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create());
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create({ 1300.f, 400.f,0.f }));
 
 	_vec3 pos = { 850.f,650.f,0.f };
 	CGameObject_Manager::Get_Instance()->Get_Player()->SetPos(pos);

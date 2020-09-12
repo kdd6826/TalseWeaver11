@@ -21,6 +21,7 @@
 #include <map>
 #include <functional>
 #include <algorithm>
+#include <iostream>
 using namespace std; 
 
 #include "d3d9.h"

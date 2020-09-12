@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Monster.h"
 #include "BlueWolf.h"
+#include "Player.h"
 CMonster::CMonster()
 {
 	m_ObjId = OBJ::OBJ_MONSTER;
@@ -26,7 +27,10 @@ HRESULT CMonster::Ready_GameObject()
 
 int CMonster::Update_GameObject()
 {
-	return 0;
+
+	CGameObject::Update_Rect_Object();
+
+	return OBJ_NOEVENT;
 }
 
 void CMonster::LateUpdate_GameObject()
@@ -51,4 +55,30 @@ CGameObject* CMonster::Create(LPVOID* pArg)
 
 void CMonster::OnCollision(CGameObject* _TargetObj)
 {
+
+	switch (_TargetObj->GetObjId()) {
+	case OBJ::OBJ_PLAYER: {
+		CPlayer* tempSwordAttack = dynamic_cast<CPlayer*>(_TargetObj);
+		if (tempSwordAttack ) {
+			m_HP -= 1;
+		
+			if (m_HP <= 0) {
+
+			}
+		}
+		break;
+	}
+	//case OBJ::OBJ_PLAYER: {
+	//	CPlayer* tempPlayer = dynamic_cast<CPlayer*>(_TargetObj);
+	//	RECT rc = {};
+	//	if (IntersectRect(&rc, tempPlayer->GetRect(), GetRect())) {
+	//		m_tInfo.vPos.x += (rc.right - rc.left);
+	//		m_tInfo.vPos.y += (rc.bottom - rc.top);
+	//	}
+	//	break;
+	//}
+	default:
+		break;
+	}
+
 }

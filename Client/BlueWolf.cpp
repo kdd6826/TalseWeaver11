@@ -17,6 +17,7 @@ HRESULT CBlueWolf::Ready_GameObject()
 	m_tInfo.vPos = { 1100.f, 600.f, 0.f };
 
 	m_tInfo.vSize = { 1.f, 1.f, 0.f };
+	m_tInfo.vRealSize = { 60.f,90.f,0.f };
 	//////
 	m_tInfo.vDir = { 1.f,1.f,0.f };
 	m_tInfo.vLook = { 1.f, 0.f, 0.f };
@@ -26,14 +27,19 @@ HRESULT CBlueWolf::Ready_GameObject()
 	m_fSpeed = 2.f;
 	m_fAngle = 0.f;
 
+	m_HP = 10;
 	return S_OK;
 }
 
 int CBlueWolf::Update_GameObject()
 {
-
+	CGameObject::Update_Rect_Object();
 	MoveFrame(m_fSpeed);
 	m_szFrameKey = L"Stand_LDown";
+	if (m_HP <= 0)
+	{
+		return OBJ_DEAD;
+	}
 	return OBJ_NOEVENT;
 }
 
@@ -67,9 +73,6 @@ void CBlueWolf::Release_GameObject()
 {
 }
 
-void CBlueWolf::OnCollision(CGameObject* _TargetObj)
-{
-}
 
 void CBlueWolf::MoveFrame(_float fSpeed)
 {

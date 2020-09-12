@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "GameObject.h"
 #include "Player.h"
 #include "Monster.h"
@@ -21,21 +22,6 @@ void CCollisionManager::CollisionRect(list<CGameObject*>& rDstList, list<CGameOb
 	}
 }
 
-void CCollisionManager::CollisionAbsorb(list<CGameObject*>& rDstList, list<CGameObject*>& rSrcList)
-{
-	RECT rc = {};
-	for (auto DstObj : rDstList) {
-		for (auto SrCGameObject : rSrcList) {
-			if (IntersectRect(&rc, DstObj->GetRect(), SrCGameObject->GetRect())) {
-
-				DstObj->OnCollision(SrCGameObject);
-				SrCGameObject->OnCollision(DstObj);
-			}
-		}
-	}
-
-}
-
 void CCollisionManager::CollisionSphere(list<CGameObject*>& rDstList, list<CGameObject*>& rSrcList) {
 
 	for (auto DstObj : rDstList) {
@@ -49,11 +35,17 @@ void CCollisionManager::CollisionSphere(list<CGameObject*>& rDstList, list<CGame
 }
 
 bool CCollisionManager::CheckSphere(CGameObject* rDstObj, CGameObject* rSrCGameObject) {
-	float fRadiusSum = static_cast<float>((rDstObj->GetInfo()->iCX >> 1) + (rSrCGameObject->GetInfo()->iCX >> 1));
-	float fX = rDstObj->GetInfo()->fX - rSrCGameObject->GetInfo()->fX;
-	float fY = rDstObj->GetInfo()->fY - rSrCGameObject->GetInfo()->fY;
-	float fDist = sqrtf(fX * fX + fY * fY);
-	return fDist < fRadiusSum;
+	
+	if (nullptr == rDstObj->GetTexInfo())
+		return OBJ_NOEVENT;
+	while(nullptr == rDstObj->GetTexInfo())
+	{
+		float fRadiusSum = (rDstObj->GetTexInfo()->tImageInfo.Width / 2) + (rSrCGameObject->GetTexInfo()->tImageInfo.Width / 2);
+		float fX = rDstObj->GetInfo()->vPos.x - rSrCGameObject->GetInfo()->vPos.x;
+		float fY = rDstObj->GetInfo()->vPos.y - rSrCGameObject->GetInfo()->vPos.y;
+		float fDist = sqrtf(fX * fX + fY * fY);
+		return fDist < fRadiusSum;
+	}
 }
 void CCollisionManager::CollisionRectEX(list<CGameObject*>& rDstList, list<CGameObject*>& rSrcList) {
 	float fMoveX = 0.f, fMoveY = 0.f;
@@ -61,34 +53,28 @@ void CCollisionManager::CollisionRectEX(list<CGameObject*>& rDstList, list<CGame
 		BOOL isCollsion = false;
 		for (auto& rSrCGameObjectect : rSrcList) {
 			if (CheckRect(rDstObject, *rSrCGameObjectect, &fMoveX, &fMoveY)) {
-				float fX = rDstObject->GetInfo()->fX;
-				float fY = rDstObject->GetInfo()->fY;
+				float fX = rDstObject->GetInfo()->vPos.x;
+				float fY = rDstObject->GetInfo()->vPos.y;
 				isCollsion = true;
 				if (fMoveX > fMoveY) {
-					if (fY < rSrCGameObjectect->GetInfo()->fY)
+					if (fY < rSrCGameObjectect->GetInfo()->vPos.y)
 						fMoveY *= -1.f;
-					rDstObject->SetPos(fX, fY + fMoveY);
+					rDstObject->SetPos(_vec3 {fX,fY+fMoveY,0.f});
 					switch (rDstObject->GetObjId()) {
-					case OBJ::MONSTER: {
+					case OBJ::OBJ_MONSTER: {
 						CMonster* tempMonster = dynamic_cast<CMonster*>(rDstObject);
 						if (tempMonster)
-							tempMonster->SetIsJump(false);
+							/*tempMonster->SetIsJump(false);*/
 
 						break;
 					}
-					case OBJ::PLAYER: {
+					case OBJ::OBJ_PLAYER: {
 						CPlayer* tempPlayer = dynamic_cast<CPlayer*>(rDstObject);
 						if (tempPlayer)
 						{
-							tempPlayer->SetIsJump(false);
+							/*tempPlayer->SetIsJump(false);*/
 
 						}
-						break;
-					}
-					case OBJ::ITEM: {
-						CItem* tempItem = dynamic_cast<CItem*>(rDstObject);
-						if (tempItem)
-							tempItem->SetIsJump(false);
 						break;
 					}
 					default:
@@ -96,33 +82,28 @@ void CCollisionManager::CollisionRectEX(list<CGameObject*>& rDstList, list<CGame
 					}
 				}
 				else {
-					if (fX < rSrCGameObjectect->GetInfo()->fX)
-						fMoveX *= -1.f;
-					rDstObject->SetPos(fX + fMoveX, fY);
+					//if (fX < rSrCGameObjectect->GetInfo()->fX)
+					//	fMoveX *= -1.f;
+					rDstObject->SetPos(_vec3{ fX+ fMoveX,fY ,0.f });
 				}
 
 			}
 		}
 		if (!isCollsion) {
 			switch (rDstObject->GetObjId()) {
-			case OBJ::MONSTER: {
+			case OBJ::OBJ_MONSTER: {
 				CMonster* tempMonster = dynamic_cast<CMonster*>(rDstObject);
 				if (tempMonster)
-					tempMonster->SetIsJump(true);
+			/*		tempMonster->SetIsJump(true);*/
 				break;
 			}
-			case OBJ::PLAYER: {
+			case OBJ::OBJ_PLAYER: {
 				CPlayer* tempPlayer = dynamic_cast<CPlayer*>(rDstObject);
 				if (tempPlayer)
-					tempPlayer->SetIsJump(true);
+					/*tempPlayer->SetIsJump(true);*/
 				break;
 			}
-			case OBJ::ITEM: {
-				CItem* tempItem = dynamic_cast<CItem*>(rDstObject);
-				if (tempItem)
-					tempItem->SetIsJump(true);
-				break;
-			}
+
 			default:
 				break;
 			}
@@ -138,15 +119,15 @@ void CCollisionManager::CollisionRectCeiling(list<CGameObject*>& rDstList, list<
 		BOOL isCollsion = false;
 		for (auto& rSrCGameObjectect : rSrcList) {
 			if (CheckRect(rDstObject, *rSrCGameObjectect, &fMoveX, &fMoveY)) {
-				float fX = rDstObject->GetInfo()->fX;
-				float fY = rDstObject->GetInfo()->fY;
+				float fX = rDstObject->GetInfo()->vPos.x;
+				float fY = rDstObject->GetInfo()->vPos.y;
 				isCollsion = true;
 				if (fMoveX > fMoveY) {
-					if (fY < rSrCGameObjectect->GetInfo()->fY)
+					if (fY < rSrCGameObjectect->GetInfo()->vPos.y)
 						fMoveY *= -1.f;
-					rDstObject->SetPos(fX, fY + fMoveY);
+					rDstObject->SetPos(_vec3{ fX, fY + fMoveY ,0.f});
 					switch (rDstObject->GetObjId()) {
-					case OBJ::MONSTER: {
+					case OBJ::OBJ_MONSTER: {
 						CMonster* tempMonster = dynamic_cast<CMonster*>(rDstObject);
 						if (tempMonster)
 						{
@@ -154,7 +135,7 @@ void CCollisionManager::CollisionRectCeiling(list<CGameObject*>& rDstList, list<
 
 						break;
 					}
-					case OBJ::PLAYER: {
+					case OBJ::OBJ_PLAYER: {
 						CPlayer* tempPlayer = dynamic_cast<CPlayer*>(rDstObject);
 						if (tempPlayer)
 						{
@@ -163,44 +144,34 @@ void CCollisionManager::CollisionRectCeiling(list<CGameObject*>& rDstList, list<
 						}
 						break;
 					}
-					case OBJ::ITEM: {
-						CItem* tempItem = dynamic_cast<CItem*>(rDstObject);
-						if (tempItem)
 
-							break;
-					}
 					default:
 						break;
 					}
 				}
 				else {
-					if (fX < rSrCGameObjectect->GetInfo()->fX)
+					if (fX < rSrCGameObjectect->GetInfo()->vPos.x)
 						fMoveX *= -1.f;
-					rDstObject->SetPos(fX + fMoveX, fY);
+					rDstObject->SetPos(_vec3{ fX + fMoveX, fY,0.f });
 				}
 
 			}
 		}
 		if (!isCollsion) {
 			switch (rDstObject->GetObjId()) {
-			case OBJ::MONSTER: {
+			case OBJ::OBJ_MONSTER: {
 				CMonster* tempMonster = dynamic_cast<CMonster*>(rDstObject);
 				if (tempMonster)
-					tempMonster->SetIsJump(true);
+					
 				break;
 			}
-			case OBJ::PLAYER: {
+			case OBJ::OBJ_PLAYER: {
 				CPlayer* tempPlayer = dynamic_cast<CPlayer*>(rDstObject);
 				if (tempPlayer)
-					tempPlayer->SetIsJump(true);
+					
 				break;
 			}
-			case OBJ::ITEM: {
-				CItem* tempItem = dynamic_cast<CItem*>(rDstObject);
-				if (tempItem)
-					tempItem->SetIsJump(true);
-				break;
-			}
+			
 			default:
 				break;
 			}
@@ -209,11 +180,11 @@ void CCollisionManager::CollisionRectCeiling(list<CGameObject*>& rDstList, list<
 }
 
 bool CCollisionManager::CheckRect(CGameObject* pDstObject, CGameObject& rSrCGameObjectect, float* pMoveX, float* pMoveY) {
-	float fRadiusSumX = static_cast<float>((pDstObject->GetInfo()->iCX >> 1) + (rSrCGameObjectect.GetInfo()->iCX >> 1));
-	float fRadiusSumY = static_cast<float>((pDstObject->GetInfo()->iCY >> 1) + (rSrCGameObjectect.GetInfo()->iCY >> 1));
+	float fRadiusSumX = static_cast<float>((pDstObject->GetTexInfo()->tImageInfo.Width/2) + (rSrCGameObjectect.GetTexInfo()->tImageInfo.Width/2));
+	float fRadiusSumY = static_cast<float>((pDstObject->GetTexInfo()->tImageInfo.Height/2) + (rSrCGameObjectect.GetTexInfo()->tImageInfo.Height/2));
 
-	float fDistX = fabsf(pDstObject->GetInfo()->fX - rSrCGameObjectect.GetInfo()->fX);
-	float fDistY = fabsf(pDstObject->GetInfo()->fY - rSrCGameObjectect.GetInfo()->fY);
+	float fDistX = fabsf(pDstObject->GetInfo()->vPos.x - rSrCGameObjectect.GetInfo()->vPos.x);
+	float fDistY = fabsf(pDstObject->GetInfo()->vPos.y - rSrCGameObjectect.GetInfo()->vPos.y);
 
 	if (fDistX <= fRadiusSumX && fDistY <= fRadiusSumY) {
 		*pMoveX = fRadiusSumX - fDistX;

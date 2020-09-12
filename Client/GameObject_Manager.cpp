@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GameObject_Manager.h"
 #include "GameObject.h"
-
+#include "Collision_Manager.h"
 IMPLEMENT_SINGLETON(CGameObject_Manager)
 CGameObject_Manager::CGameObject_Manager()
 {
@@ -55,6 +55,9 @@ void CGameObject_Manager::LateUpdate_GameObject()
 			pObj->LateUpdate_GameObject();
 		}
 	}
+	CCollisionManager::CollisionSphere(m_listGameObject[OBJ::OBJ_PLAYER], m_listGameObject[OBJ::OBJ_MONSTER]);
+
+
 }
 
 void CGameObject_Manager::Render_GameObject()

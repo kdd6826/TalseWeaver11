@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "KeyManager.h"
 #include "AStar.h"
+#include "Monster.h"
 #include "Scene_Manager.h"
 CPlayer::CPlayer()
 {
@@ -112,6 +113,7 @@ HRESULT CPlayer::Ready_GameObject()
 	m_tInfo.vPos = { 800.f, 400.f, 0.f };
 	CScroll_Manager::Set_Scroll({ -m_tInfo.vPos.x / 2,-m_tInfo.vPos.y / 2,0.f });
 	m_tInfo.vSize = { 1.f, 1.f, 0.f };
+	m_tInfo.vRealSize = { 60.f,90.f,0.f };
 	//////
 	m_tInfo.vDir = { 1.f,1.f,0.f };
 	m_tInfo.vLook = { 1.f, 0.f, 0.f };
@@ -127,6 +129,8 @@ HRESULT CPlayer::Ready_GameObject()
 
 int CPlayer::Update_GameObject()
 {
+
+	CGameObject::Update_Rect_Object();
 
 	if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_F10))
 	{
@@ -290,4 +294,20 @@ CGameObject* CPlayer::Create(LPVOID* pArg)
 
 void CPlayer::OnCollision(CGameObject* _TargetObj)
 {
+	switch (_TargetObj->GetObjId()) {
+	case OBJ::OBJ_MONSTER:
+	{
+		CMonster* tempCollision = dynamic_cast<CMonster*>(_TargetObj);
+
+		if (tempCollision)
+		{
+
+			m_tInfo.vPos.x - 100;
+
+		}
+
+	}
+
+
+	}
 }
