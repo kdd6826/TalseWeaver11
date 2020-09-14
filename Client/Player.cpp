@@ -4,6 +4,7 @@
 #include "AStar.h"
 #include "Monster.h"
 #include "Scene_Manager.h"
+#include "NormalAttack.h"
 CPlayer::CPlayer()
 {
 	m_ObjId = OBJ::OBJ_PLAYER;
@@ -39,6 +40,7 @@ void CPlayer::RouteTrack()
 		m_iMirror = -1;
 	else
 		m_iMirror = 1;
+
 	isMovingCount = true;
 
 	//
@@ -86,8 +88,13 @@ void CPlayer::RouteTrack()
 		m_DirectionKey = L"LDOWN";
 	}
 
+
+
 	if (BestList.empty())
+	{
 		isMoving = false;
+		m_tFrame = { 0,9 };
+	}
 
 	CScroll_Manager::Set_Scroll(-m_tInfo.vDir * 300.f * CTime_Manager::Get_Instance()->Get_DeltaTime());
 }
@@ -107,6 +114,7 @@ void CPlayer::StopAStar()
 	return;
 }
 
+
 HRESULT CPlayer::Ready_GameObject()
 {
 
@@ -119,16 +127,35 @@ HRESULT CPlayer::Ready_GameObject()
 	m_tInfo.vLook = { 1.f, 0.f, 0.f };
 	///////
 	m_szFrameKey = L"STAND_LEFT";
-	m_tFrame = { 0.f, 5.f };
+	m_tFrame = { 0.f, 10.f };
 	m_fSpeed = 2.f;
 	m_fAngle = 0.f;
 	
+	m_MaxHP = 1000;
+	m_MaxMP = 1000;
+	m_MaxSP = 1000;
+
+	m_HP = m_MaxHP;
+	m_MP = m_MaxMP;
+	m_SP = m_MaxSP;
+
+	
+
+	m_fAttack = 3.f;
+	m_fDef = 1.f;
+	m_fCritical = 0.1f;
+	m_fCriticalDamage = 2.f;
 	
 	return S_OK;
 }
 
 int CPlayer::Update_GameObject()
 {
+
+	if (m_HP <= 0)
+	{
+		return OBJ_DEAD;
+	}
 
 	CGameObject::Update_Rect_Object();
 
@@ -148,10 +175,54 @@ int CPlayer::Update_GameObject()
 	if (isMoving)
 	{
 		m_StateKey = L"RUN_";
+
 	}
 	if (!isMoving)
+	{
 		m_StateKey = L"STAND_";
+	}
 
+
+	//공격,  마법
+	if (!isMoving&&!isAttack&&!isEvolution)
+	{
+		if (CGameObject_Manager::Get_Instance()->Get_Mouse()->GetState() == L"Battle")
+		{
+
+
+			if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_LBUTTON))
+			{
+
+				POINT pt = {};
+				GetCursorPos(&pt);
+				ScreenToClient(g_hWND, &pt);
+				D3DXVECTOR3 vMouse = { float(pt.x) - CScroll_Manager::Get_Scroll(CScroll_Manager::X), float(pt.y) - CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f };
+				m_tInfo.vDir = vMouse - m_tInfo.vPos;
+				float fDist = D3DXVec3Length(&m_tInfo.vDir);
+				D3DXVec3Normalize(&m_tInfo.vDir, &m_tInfo.vDir);
+				float fRadian = D3DXVec3Dot(&m_tInfo.vLook, &m_tInfo.vDir);
+				m_fAngle = acosf(fRadian);
+				if (m_tInfo.vPos.y < vMouse.y)
+					m_fAngle *= -1.f;
+				if (m_tInfo.vPos.x < vMouse.x)
+					m_iMirror = -1;
+				else
+					m_iMirror = 1;
+				isAttack = true;
+				m_fAttackTime = 0;
+				m_tFrame.fFrameStart = 0;
+				m_tFrame.fFrameEnd = 13;
+				
+			}
+			if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_S))
+			{
+				isEvolution = true;
+				m_fAttackTime = 0;
+				m_tFrame.fFrameStart = 0;
+				m_tFrame.fFrameEnd = 10;
+			}
+		}
+	}
 	//방향
 	if (-0.5f <= m_fAngle && m_fAngle < 0.5f)
 	{
@@ -173,11 +244,11 @@ int CPlayer::Update_GameObject()
 	{
 		m_DirectionKey = L"LEFT";
 	}
-	if (-3.25f <= m_fAngle && m_fAngle < -2.5f)
+	if (-3.25f <= m_fAngle && m_fAngle < -2.7f)
 	{
 		m_DirectionKey = L"LEFT";
 	}
-	if (-2.5f <= m_fAngle && m_fAngle < -2.f)
+	if (-2.7f <= m_fAngle && m_fAngle < -2.f)
 	{
 		m_DirectionKey = L"LDOWN";
 	}
@@ -189,38 +260,32 @@ int CPlayer::Update_GameObject()
 	{
 		m_DirectionKey = L"LDOWN";
 	}
-
-	if (!isMoving&&!isAttack&&!isEvolution)
-	{
-		
-		if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_D))
-		{
-			isAttack = true;
-			m_fAttackTime = 0;
-			m_tFrame.fFrameStart = 0;
-		}
-		if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_S))
-		{
-			isEvolution = true;
-			m_fAttackTime = 0;
-			m_tFrame.fFrameStart = 0;
-		}
-	}
 	if (isAttack)
 	{
-
-		if (m_fAttackTime < 2.1)
+		if (m_fAttackTime > 0.5 && m_fAttackCount==0)
 		{
-			m_fSpeed = 10.f;
-			m_fAttackTime += 0.1;
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_ATTACK, CNormalAttack::Create());
+			++m_fAttackCount;
+		}
+		if (m_fAttackTime > 1.5 && m_fAttackCount == 1)
+		{
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_ATTACK, CNormalAttack::Create());
+			++m_fAttackCount;
+		}
+		if (m_fAttackTime < 1.9)
+		{
+			
+			m_fAttackTime += 1.9* CTime_Manager::Get_Instance()->Get_DeltaTime() * m_fSpeed;
 			m_StateKey = L"ATTACK1_";
 
 		}
 		else
 		{
-			m_fSpeed = 2.f;
+			
 			isAttack = false;
 			m_StateKey = L"STAND_";
+			m_tFrame.fFrameEnd = 10;
+			m_fAttackCount = 0;
 		}
 	}
 	if (isEvolution)
@@ -228,42 +293,59 @@ int CPlayer::Update_GameObject()
 
 		if (m_fAttackTime < 2.1)
 		{
-			m_fSpeed = 5.f;
+			m_fSpeed = 2.f;
 			m_fAttackTime += 0.1;
 			m_StateKey = L"EVOLUTION";
 			m_DirectionKey = L"";
 		}
 		else
 		{
-			m_fSpeed = 2.f;
+			m_fSpeed = 8.f;
 			isEvolution = false;
 			m_StateKey = L"STAND_";
-		}
-	}
-	if (!isAttack)
-	{
-		if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_LBUTTON))
-		{
-			POINT pt = {};
-			GetCursorPos(&pt);
-			ScreenToClient(g_hWND, &pt);
-			pt.x -= CScroll_Manager::Get_Scroll(CScroll_Manager::X);
-			pt.y -= CScroll_Manager::Get_Scroll(CScroll_Manager::Y);
-			_vec3 vMouse = { float(pt.x), float(pt.y), 0.f };
-			m_tInfo.vPos;
-			CAStar::Get_Instance()->Start_AStar(m_tInfo.vPos, vMouse);
-			isMoving = true;
+			isEvoluting = true;
+				
 		}
 	}
 
+	if (!isAttack)
+	{
+		if (CGameObject_Manager::Get_Instance()->Get_Mouse()->GetState() == L"Normal")
+		{
+			if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_LBUTTON))
+			{
+
+				POINT pt = {};
+				GetCursorPos(&pt);
+				ScreenToClient(g_hWND, &pt);
+				pt.x -= CScroll_Manager::Get_Scroll(CScroll_Manager::X);
+				pt.y -= CScroll_Manager::Get_Scroll(CScroll_Manager::Y);
+				_vec3 vMouse = { float(pt.x), float(pt.y), 0.f };
+				m_tInfo.vPos;
+				CAStar::Get_Instance()->Start_AStar(m_tInfo.vPos, vMouse);
+				isMoving = true;
+
+			}
+		}
+
+
+	}
+
+
+
+
 	m_szFrameKey = m_StateKey + m_DirectionKey;
-	return 0;
+	return OBJ_NOEVENT;
 }
 
 void CPlayer::LateUpdate_GameObject()
 {
 	if (isMoving)
+	{
+		m_fSpeed = 2.f;
 		RouteTrack();
+		m_tFrame.fFrameEnd =7;
+	}
 }
 
 void CPlayer::Render_GameObject()
@@ -278,6 +360,8 @@ void CPlayer::Render_GameObject()
 	matWorld = matScale * matTrans;
 	CGraphic_Device::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
 	CGraphic_Device::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture, nullptr, &vCenter, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+	
 }
 
 void CPlayer::Release_GameObject()
@@ -302,7 +386,7 @@ void CPlayer::OnCollision(CGameObject* _TargetObj)
 		if (tempCollision)
 		{
 
-			m_tInfo.vPos.x - 100;
+			/*m_tInfo.vPos.x -= 100;*/
 
 		}
 

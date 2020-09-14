@@ -82,6 +82,18 @@
     <Filter Include="Scene\Tutorial">
       <UniqueIdentifier>{04252d41-f6e6-494a-9d35-5ef3804df293}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Obj\Font">
+      <UniqueIdentifier>{c773f13d-ba69-4fc3-baa3-6d8a7b51e8e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Mouse">
+      <UniqueIdentifier>{946e8d75-9899-4f69-b43a-eee003882991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Player\Attack">
+      <UniqueIdentifier>{a8d0c0fd-e7af-46e0-941a-4553e1e48a41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Portal">
+      <UniqueIdentifier>{c8fb3a9f-aa88-43e9-b432-8c56a8ecafb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -171,6 +183,18 @@
     <ClInclude Include="Collision_Manager.h">
       <Filter>02.Manager\Collision_Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>01.Obj\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>01.Obj\Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalAttack.h">
+      <Filter>01.Obj\Player\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Damage.h">
+      <Filter>01.Obj\Font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -253,6 +277,18 @@
     </ClCompile>
     <ClCompile Include="Collision_Manager.cpp">
       <Filter>02.Manager\Collision_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>01.Obj\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>01.Obj\Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalAttack.cpp">
+      <Filter>01.Obj\Player\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="Damage.cpp">
+      <Filter>01.Obj\Font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -19,8 +19,7 @@ public:
 public:
     static CGameObject* Create(LPVOID* pArg = nullptr);
 protected:
-    INT  m_HP = 1;
-    INT  m_MaxHP = 1;
+
 
     // CGameObject을(를) 통해 상속됨
  

@@ -27,7 +27,7 @@ HRESULT CBlueWolf::Ready_GameObject()
 	m_fSpeed = 2.f;
 	m_fAngle = 0.f;
 
-	m_HP = 10;
+	m_HP = 1000;
 	return S_OK;
 }
 

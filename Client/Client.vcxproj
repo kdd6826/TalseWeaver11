@@ -160,6 +160,7 @@
     <ClInclude Include="BlueWolf.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Collision_Manager.h" />
+    <ClInclude Include="Damage.h" />
     <ClInclude Include="Frame_Manager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObject_Manager.h" />
@@ -169,8 +170,11 @@
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Monster_Manager.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="MultiTex.h" />
+    <ClInclude Include="NormalAttack.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene_Manager.h" />
@@ -191,6 +195,7 @@
     <ClCompile Include="BlueWolf.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Collision_Manager.cpp" />
+    <ClCompile Include="Damage.cpp" />
     <ClCompile Include="Frame_Manager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObject_Manager.cpp" />
@@ -200,8 +205,11 @@
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Monster_Manager.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MultiTex.cpp" />
+    <ClCompile Include="NormalAttack.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene_Manager.cpp" />
     <ClCompile Include="Scroll_Manager.cpp" />

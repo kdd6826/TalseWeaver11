@@ -2,6 +2,8 @@
 #include "Monster.h"
 #include "BlueWolf.h"
 #include "Player.h"
+#include "NormalAttack.h"
+#include "Damage.h"
 CMonster::CMonster()
 {
 	m_ObjId = OBJ::OBJ_MONSTER;
@@ -60,8 +62,19 @@ void CMonster::OnCollision(CGameObject* _TargetObj)
 	case OBJ::OBJ_PLAYER: {
 		CPlayer* tempSwordAttack = dynamic_cast<CPlayer*>(_TargetObj);
 		if (tempSwordAttack ) {
-			m_HP -= 1;
-		
+			m_HP -= _TargetObj->GetAttack();
+			
+			if (m_HP <= 0) {
+
+			}
+		}
+		break;
+	}
+	case OBJ::OBJ_ATTACK: {
+		CNormalAttack* tempSwordAttack = dynamic_cast<CNormalAttack*>(_TargetObj);
+		if (tempSwordAttack) {
+			m_HP -= _TargetObj->GetAttack();
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_DAMAGE, CDamage::Create({ m_tInfo.vPos.x-pTexInfo->tImageInfo.Width/2,m_tInfo.vPos.y - pTexInfo->tImageInfo.Height / 2,0.f }));
 			if (m_HP <= 0) {
 
 			}

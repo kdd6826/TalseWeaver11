@@ -3,6 +3,7 @@
 #include "Terrain.h"
 #include "Player.h"
 #include "Monster.h"
+#include "Mouse.h"
 #include "BlueWolf.h"
 #include "Scene_Manager.h"
 CTutorial::CTutorial()
@@ -18,7 +19,7 @@ CTutorial::~CTutorial()
 HRESULT CTutorial::Ready_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create(L"../Data/TutorialData.dat"));
-
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MOUSE, CMouse::Create());
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER, CPlayer::Create());
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create({ 1000.f,500.f,0.f }));
 	

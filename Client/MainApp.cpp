@@ -55,15 +55,18 @@ void CMainApp::Ready_MainApp()
 	//ATTACK
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_DOWN/ATTACK1_DOWN%d.png", L"Player", L"ATTACK1_DOWN", 13)))
 		return;
-	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_LDOWN/ATTACK1_LDOWN%d.png", L"Player", L"ATTACK1_LDOWN", 8)))
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_LDOWN/ATTACK1_LDOWN%d.png", L"Player", L"ATTACK1_LDOWN", 13)))
 		return;
-	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_LEFT/ATTACK1_LEFT%d.png", L"Player", L"ATTACK1_LEFT", 8)))
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_LEFT/ATTACK1_LEFT%d.png", L"Player", L"ATTACK1_LEFT", 13)))
 		return;
-	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_LUP/ATTACK1_LUP%d.png", L"Player", L"ATTACK1_LUP", 8)))
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_LUP/ATTACK1_LUP%d.png", L"Player", L"ATTACK1_LUP", 13)))
 		return;
-	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_UP/ATTACK1_UP%d.png", L"Player", L"ATTACK1_UP", 8)))
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_UP/ATTACK1_UP%d.png", L"Player", L"ATTACK1_UP", 13)))
 		return;
 
+	//RANGE
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/ATTACK1_LEFT_RANGE/ATTACK1_LEFT_RANGE%d.png", L"Player", L"ATTACK1_UP_RANGE", 1)))
+		return;
 	//REST
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/REST_DOWN/REST_DOWN%d.png", L"Player", L"REST_DOWN", 1)))
 		return;
@@ -80,6 +83,30 @@ void CMainApp::Ready_MainApp()
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/EVOLUTION/Evolution0%d.png", L"Player", L"EVOLUTION", 11)))
 		return;
 
+	//마우스
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Mouse/Battle/Battle_%d.png", L"Mouse", L"Battle", 7)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Mouse/Click/Click%d.png", L"Mouse", L"Click", 2)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Mouse/Gate/Gate%d.png", L"Mouse", L"Gate", 4)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Mouse/Magic/%d.png", L"Mouse", L"Magic", 9)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Mouse/NoPass/NoPass_%d.png", L"Mouse", L"NoPass", 12)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Mouse/Normal/Normal_%d.png", L"Mouse", L"Normal", 13)))
+		return;
+
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Mouse/NpcCol/NpcCol%d.png", L"Mouse", L"NpcCol", 2)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Mouse/Pick/Pick%d.png", L"Mouse", L"Battle", 3)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Mouse/Target/Target%d.png", L"Mouse", L"Target", 4)))
+		return;
+
+	//데미지 폰트
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/PlayerHNumber/%d.png", L"Effect", L"PlayerHNumber", 10)))
+		return;
 
 	//몬스터
 	//BLUEWOLF

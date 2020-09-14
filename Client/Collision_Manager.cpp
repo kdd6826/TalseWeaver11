@@ -36,16 +36,12 @@ void CCollisionManager::CollisionSphere(list<CGameObject*>& rDstList, list<CGame
 
 bool CCollisionManager::CheckSphere(CGameObject* rDstObj, CGameObject* rSrCGameObject) {
 	
-	if (nullptr == rDstObj->GetTexInfo())
-		return OBJ_NOEVENT;
-	while(nullptr == rDstObj->GetTexInfo())
-	{
-		float fRadiusSum = (rDstObj->GetTexInfo()->tImageInfo.Width / 2) + (rSrCGameObject->GetTexInfo()->tImageInfo.Width / 2);
+
+		float fRadiusSum = (rDstObj->GetInfo()->vRealSize.x / 2) + (rSrCGameObject->GetInfo()->vRealSize.x / 2);
 		float fX = rDstObj->GetInfo()->vPos.x - rSrCGameObject->GetInfo()->vPos.x;
 		float fY = rDstObj->GetInfo()->vPos.y - rSrCGameObject->GetInfo()->vPos.y;
 		float fDist = sqrtf(fX * fX + fY * fY);
 		return fDist < fRadiusSum;
-	}
 }
 void CCollisionManager::CollisionRectEX(list<CGameObject*>& rDstList, list<CGameObject*>& rSrcList) {
 	float fMoveX = 0.f, fMoveY = 0.f;
