@@ -1,11 +1,11 @@
 #pragma once
 #include "GameObject.h"
-class CPortal final : public CGameObject
+class CMonster_NormalAttack final : public CGameObject
 {
 private:
-	CPortal();
+	CMonster_NormalAttack();
 public:
-	~CPortal();
+	~CMonster_NormalAttack();
 
 public:
 	// CGameObject을(를) 통해 상속됨
@@ -17,10 +17,9 @@ public:
 	virtual void OnCollision(CGameObject* _TargetObj) override;
 
 public:
-	void MoveFrame(_float fSpeed = 1.f);
-public:
 	static CGameObject* Create(LPVOID* pArg = nullptr);
-	static CGameObject* Create(_vec3 vpos);
+	static CGameObject* Create(float _Att);
+
 private:
 
 };

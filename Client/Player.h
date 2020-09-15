@@ -22,18 +22,17 @@ public:
 	
 public:
 	static CGameObject* Create(LPVOID* pArg = nullptr);
+	static CGameObject* Create(_vec3 vpos);
 private:
 	/*INFO m_tInfo; */
 
 	//FRAME m_tFrame;
 	_matrix m_matRotate;
 	
-	wstring m_StateKey;
-	wstring m_DirectionKey;
+
 	wstring m_Normal;
 
-	bool isMoving = false;
-	bool isAttack = false;
+	
 	bool isEvolution = false;
 	bool isEvoluting = false;
 	_float m_fAttackTime = 0;

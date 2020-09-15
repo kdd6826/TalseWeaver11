@@ -18,8 +18,9 @@ public:
 
 public:
 	static CGameObject* Create(LPVOID* pArg = nullptr);
-	static CGameObject* Create(_vec3 vpos);
+	static CGameObject* Create(_vec3 vpos, float _Attack);
+	
 private:
-
+	int m_iAttackFont[5];
 };
 

@@ -17,9 +17,12 @@ public:
     virtual void Release_GameObject() override;
     virtual void OnCollision(CGameObject* _TargetObj) override;
 public:
+	bool Search_Player(float distRange);
+public:
     static CGameObject* Create(LPVOID* pArg = nullptr);
 protected:
-
+	bool m_isSearch = false;
+	bool m_Animation = false;
 
     // CGameObject을(를) 통해 상속됨
  

@@ -21,7 +21,14 @@ public:
 	void SetPos(_vec3& _pos) {
 		m_tInfo.vPos = _pos;
 	}
+	void SetFirstPos(_vec3& _pos) {
+		FirstPos = _pos;
+	}
+	void SetAttack(float& _attack) {
+		m_fAttack = _attack;
+	}
 	float GetAttack(){ return m_fAttack; }
+	int GetHp() { return m_HP; }
 	RECT* GetRect() { return &m_tRect; }
 	INFO* GetInfo() { return &m_tInfo; }
 	int* GetMirror() { return &m_iMirror; }
@@ -47,14 +54,19 @@ protected:
 	float m_fDef = 0.f;
 	float m_fCritical = 0.f;
 	float m_fCriticalDamage = 0.f;
-
+	FLOAT forceX=0.f;
+	FLOAT forceY=0.f;
+	bool isMoving = false;
+	bool isAttack = false;
 	RECT m_tRect;
 	OBJ::ID m_ObjId = OBJ::OBJ_END;
+	wstring m_StateKey;
+	wstring m_DirectionKey;
 	wstring m_szFrameKey;
 	float m_fSpeed = 0.f;
 	float m_fAngle = 0.f;
 	INFO m_tInfo;
-	
+	_vec3 FirstPos;
 	FRAME m_tFrame;
 	const TEXINFO* pTexInfo;
 };

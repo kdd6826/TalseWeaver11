@@ -170,6 +170,7 @@
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Monster_Manager.h" />
+    <ClInclude Include="Monster_NormalAttack.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MultiTex.h" />
     <ClInclude Include="NormalAttack.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Monster_Manager.cpp" />
+    <ClCompile Include="Monster_NormalAttack.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MultiTex.cpp" />
     <ClCompile Include="NormalAttack.cpp" />

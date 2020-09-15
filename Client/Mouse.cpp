@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Mouse.h"
 #include "Monster.h"
+#include "KeyManager.h"
 CMouse::CMouse()
 {
 	m_ObjId = OBJ::OBJ_MOUSE;
@@ -50,7 +51,22 @@ int CMouse::Update_GameObject()
 	D3DXVECTOR3 vMouse = { float(pt.x) - CScroll_Manager::Get_Scroll(CScroll_Manager::X), float(pt.y) - CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f };
 	m_tInfo.vPos = vMouse;
 	MoveFrame();
-	
+	if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_F2))
+	{
+		m_isMagic = true;
+	}
+	if (m_isMagic)
+	{
+		m_szFrameKey = L"Magic";
+		if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_LBUTTON))
+		{
+			m_isMagic = false;
+		}
+	}
+	else
+	{
+		m_szFrameKey = L"Normal";
+	}
 	return 0;
 }
 

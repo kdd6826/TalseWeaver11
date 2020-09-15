@@ -62,7 +62,7 @@ void CMonster::OnCollision(CGameObject* _TargetObj)
 	case OBJ::OBJ_PLAYER: {
 		CPlayer* tempSwordAttack = dynamic_cast<CPlayer*>(_TargetObj);
 		if (tempSwordAttack ) {
-			m_HP -= _TargetObj->GetAttack();
+			/*m_HP -= _TargetObj->GetAttack();*/
 			
 			if (m_HP <= 0) {
 
@@ -74,7 +74,8 @@ void CMonster::OnCollision(CGameObject* _TargetObj)
 		CNormalAttack* tempSwordAttack = dynamic_cast<CNormalAttack*>(_TargetObj);
 		if (tempSwordAttack) {
 			m_HP -= _TargetObj->GetAttack();
-			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_DAMAGE, CDamage::Create({ m_tInfo.vPos.x-pTexInfo->tImageInfo.Width/2,m_tInfo.vPos.y - pTexInfo->tImageInfo.Height / 2,0.f }));
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_DAMAGE, CDamage::Create({ m_tInfo.vPos.x-pTexInfo->tImageInfo.Width/2,m_tInfo.vPos.y - pTexInfo->tImageInfo.Height / 2,0.f },_TargetObj->GetAttack()));
+
 			if (m_HP <= 0) {
 
 			}
@@ -94,4 +95,18 @@ void CMonster::OnCollision(CGameObject* _TargetObj)
 		break;
 	}
 
+
+
+}
+bool CMonster::Search_Player(float distRange)
+{
+	if (!CGameObject_Manager::Get_Instance()->Get_Player())
+		return false;
+	m_tInfo.vPos.x < CGameObject_Manager::Get_Instance()->Get_Player()->GetPos().x ? forceX = 1.f : forceX = -1.f;
+
+	float distanceX = fabsf(CGameObject_Manager::Get_Instance()->Get_Player()->GetPos().x - m_tInfo.vPos.x);
+	float distanceY = fabsf(CGameObject_Manager::Get_Instance()->Get_Player()->GetPos().y - m_tInfo.vPos.y);
+	if (distanceX < distRange&&distanceY<distRange)
+		return true;
+	return false;
 }

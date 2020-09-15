@@ -73,9 +73,6 @@
     <Filter Include="Scene\Town">
       <UniqueIdentifier>{cc3db7c2-5b85-4f22-acf2-0fa0efbd2699}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Shop">
-      <UniqueIdentifier>{927b4e96-fdce-4404-8b41-ac71b826cf74}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.Manager\Collision_Manager">
       <UniqueIdentifier>{4fa617a2-ae8d-4d44-9318-92da6d4de79c}</UniqueIdentifier>
     </Filter>
@@ -93,6 +90,12 @@
     </Filter>
     <Filter Include="01.Obj\Portal">
       <UniqueIdentifier>{c8fb3a9f-aa88-43e9-b432-8c56a8ecafb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Shop">
+      <UniqueIdentifier>{927b4e96-fdce-4404-8b41-ac71b826cf74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Monster\Attack">
+      <UniqueIdentifier>{c0c4ba88-fd4a-4bf4-b359-ed702990a709}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +198,9 @@
     <ClInclude Include="Damage.h">
       <Filter>01.Obj\Font</Filter>
     </ClInclude>
+    <ClInclude Include="Monster_NormalAttack.h">
+      <Filter>01.Obj\Monster\Attack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -289,6 +295,9 @@
     </ClCompile>
     <ClCompile Include="Damage.cpp">
       <Filter>01.Obj\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_NormalAttack.cpp">
+      <Filter>01.Obj\Monster\Attack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

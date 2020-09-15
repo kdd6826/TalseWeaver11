@@ -5,6 +5,8 @@
 #include "Monster.h"
 #include "Scene_Manager.h"
 #include "NormalAttack.h"
+#include "Damage.h"
+#include "Monster_NormalAttack.h"
 CPlayer::CPlayer()
 {
 	m_ObjId = OBJ::OBJ_PLAYER;
@@ -23,7 +25,7 @@ void CPlayer::RouteTrack()
 	list<TILE*>& BestList = CAStar::Get_Instance()->Get_BestList();
 	if (BestList.empty())
 		return;
-
+	
 	m_tInfo.vDir = BestList.front()->vPos - m_tInfo.vPos;
 	float fDist = D3DXVec3Length(&m_tInfo.vDir);
 	D3DXVec3Normalize(&m_tInfo.vDir, &m_tInfo.vDir);
@@ -111,6 +113,7 @@ void CPlayer::StopAStar()
 	list<TILE*>& BestList = CAStar::Get_Instance()->Get_BestList();
 	if (!BestList.empty())
 		BestList.pop_front();
+
 	return;
 }
 
@@ -141,7 +144,7 @@ HRESULT CPlayer::Ready_GameObject()
 
 	
 
-	m_fAttack = 3.f;
+	m_fAttack = 10.f;
 	m_fDef = 1.f;
 	m_fCritical = 0.1f;
 	m_fCriticalDamage = 2.f;
@@ -152,10 +155,10 @@ HRESULT CPlayer::Ready_GameObject()
 int CPlayer::Update_GameObject()
 {
 
-	if (m_HP <= 0)
-	{
-		return OBJ_DEAD;
-	}
+	//if (m_HP <= 0)
+	//{
+	//	return OBJ_DEAD;
+	//}
 
 	CGameObject::Update_Rect_Object();
 
@@ -285,6 +288,7 @@ int CPlayer::Update_GameObject()
 			isAttack = false;
 			m_StateKey = L"STAND_";
 			m_tFrame.fFrameEnd = 10;
+			m_tFrame.fFrameStart = 0;
 			m_fAttackCount = 0;
 		}
 	}
@@ -376,6 +380,15 @@ CGameObject* CPlayer::Create(LPVOID* pArg)
 	return pInstnace;
 }
 
+CGameObject * CPlayer::Create(_vec3 vpos)
+{
+	CGameObject* pInstnace = new CPlayer;
+	if (FAILED(pInstnace->Ready_GameObject()))
+		return nullptr;
+	pInstnace->SetPos(vpos);
+	return pInstnace;
+}
+
 void CPlayer::OnCollision(CGameObject* _TargetObj)
 {
 	switch (_TargetObj->GetObjId()) {
@@ -389,9 +402,20 @@ void CPlayer::OnCollision(CGameObject* _TargetObj)
 			/*m_tInfo.vPos.x -= 100;*/
 
 		}
-
+		break;
 	}
+	case OBJ::OBJ_MONSTER_ATTACK:
+	{
+		CMonster_NormalAttack* tempCollision = dynamic_cast<CMonster_NormalAttack*>(_TargetObj);
+		if (tempCollision)
+		{
+			m_HP -= _TargetObj->GetAttack();
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_DAMAGE, CDamage::Create({ m_tInfo.vPos.x - pTexInfo->tImageInfo.Width / 5,m_tInfo.vPos.y - pTexInfo->tImageInfo.Height / 3,0.f }, _TargetObj->GetAttack()));
 
-
+		}
+		break;
+	}
+	default:
+		break;
 	}
 }

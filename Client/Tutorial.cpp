@@ -6,6 +6,7 @@
 #include "Mouse.h"
 #include "BlueWolf.h"
 #include "Scene_Manager.h"
+#include "Portal.h"
 CTutorial::CTutorial()
 {
 }
@@ -21,8 +22,10 @@ HRESULT CTutorial::Ready_Scene()
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create(L"../Data/TutorialData.dat"));
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MOUSE, CMouse::Create());
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER, CPlayer::Create());
-	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create({ 1000.f,500.f,0.f }));
-	
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create({ 1300.f,500.f,0.f }));
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create({ 1400.f,750.f,0.f }));
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create({ 1500.f,350.f,0.f }));
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PORTAL, CPortal::Create({ 1730.f,850.f,0.f }));
 	return S_OK;
 }
 

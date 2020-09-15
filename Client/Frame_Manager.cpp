@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Frame_Manager.h"
-
+#include "Player.h"
 
 CFrame_Manager::CFrame_Manager()
 	: m_iFPS(0)
@@ -47,9 +47,11 @@ bool CFrame_Manager::Look_FrameManager()
 void CFrame_Manager::Render_FrameManager()
 {
 	m_fFPS += CTime_Manager::Get_Instance()->Get_DeltaTime();
+	int i = CGameObject_Manager::Get_Instance()->Get_Player()->GetHp();
 	if (1.f < m_fFPS)
 	{
-		wsprintf(m_szFPS, L"FPS: %d", m_iFPS);
+		//프레임표시
+		wsprintf(m_szFPS, L"HP: %d", i);
 		m_iFPS = 0;
 		m_fFPS = 0.f;
 	}

@@ -55,9 +55,11 @@ void CGameObject_Manager::LateUpdate_GameObject()
 			pObj->LateUpdate_GameObject();
 		}
 	}
+	CCollisionManager::CollisionSphere(m_listGameObject[OBJ::OBJ_PLAYER], m_listGameObject[OBJ::OBJ_MONSTER_ATTACK]);
 	CCollisionManager::CollisionSphere(m_listGameObject[OBJ::OBJ_PLAYER], m_listGameObject[OBJ::OBJ_MONSTER]);
 	CCollisionManager::CollisionSphere(m_listGameObject[OBJ::OBJ_MOUSE], m_listGameObject[OBJ::OBJ_MONSTER]);
 	CCollisionManager::CollisionSphere(m_listGameObject[OBJ::OBJ_ATTACK], m_listGameObject[OBJ::OBJ_MONSTER]);
+
 }
 
 void CGameObject_Manager::Render_GameObject()

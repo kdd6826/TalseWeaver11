@@ -104,6 +104,10 @@ void CMainApp::Ready_MainApp()
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Mouse/Target/Target%d.png", L"Mouse", L"Target", 4)))
 		return;
 
+	//포탈
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/WARPGATE/WarpGate/WarpGate%d.png", L"WARPGATE", L"WarpGate", 24)))
+		return;
+
 	//데미지 폰트
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/PlayerHNumber/%d.png", L"Effect", L"PlayerHNumber", 10)))
 		return;
@@ -114,7 +118,14 @@ void CMainApp::Ready_MainApp()
 		return;
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/BlueWolf/STAND_LUP/Stand_LUp%d.png", L"BlueWolf", L"Stand_LUp", 6)))
 		return;
-
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/BlueWolf/ATT_LDOWN/Attack_LDown%d.png", L"BlueWolf", L"Attack_LDown", 8)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/BlueWolf/ATT_LUP/Attack_LUp%d.png", L"BlueWolf", L"Attack_LUp", 8)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/BlueWolf/WALK_LDOWN/Walk_LDown%d.png", L"BlueWolf", L"Walk_LDown", 6)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/BlueWolf/WALK_LUP/Walk_LUp%d.png", L"BlueWolf", L"Walk_LUp", 6)))
+		return;
 
 	CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_TUTORIAL);
 

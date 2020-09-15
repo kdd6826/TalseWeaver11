@@ -20,13 +20,19 @@ HRESULT CNormalAttack::Ready_GameObject()
 	
 	//////
 	m_tFrame = { 0,5 };
-	
-	m_fAttack = CGameObject_Manager::Get_Instance()->Get_Player()->GetAttack() * 1.5f;
+	srand(unsigned(time(nullptr)));
+	int iRand = rand()%10;
+
+	m_fAttack = CGameObject_Manager::Get_Instance()->Get_Player()->GetAttack();
+	if (iRand < 5)
+		m_fAttack *= 2;
 	return S_OK;
 }
 
 int CNormalAttack::Update_GameObject()
 {
+
+
 	if (m_HP <= 0)
 	{
 		return OBJ_DEAD;
@@ -38,12 +44,12 @@ int CNormalAttack::Update_GameObject()
 	}
 
 	m_tInfo.vPos.x = CGameObject_Manager::Get_Instance()->Get_Player()->GetInfo()->vPos.x-m_iMirror*30;
-	m_tInfo.vPos.y = CGameObject_Manager::Get_Instance()->Get_Player()->GetInfo()->vPos.y;
+	m_tInfo.vPos.y = CGameObject_Manager::Get_Instance()->Get_Player()->GetInfo()->vPos.y-100;
 	m_tInfo.vSize = CGameObject_Manager::Get_Instance()->Get_Player()->GetInfo()->vSize;
 	//////
 	m_tInfo.vDir = CGameObject_Manager::Get_Instance()->Get_Player()->GetInfo()->vDir;
 	m_tInfo.vLook = CGameObject_Manager::Get_Instance()->Get_Player()->GetInfo()->vLook;
-	m_iMirror = -*CGameObject_Manager::Get_Instance()->Get_Player()->GetMirror();
+	m_iMirror = *CGameObject_Manager::Get_Instance()->Get_Player()->GetMirror();
 	return OBJ_NOEVENT;
 }
 
@@ -58,12 +64,12 @@ void CNormalAttack::Render_GameObject()
 		if (nullptr == pTexInfo)
 			return;
 
-		m_tInfo.vRealSize = { float(pTexInfo->tImageInfo.Width * 1.5),  float(pTexInfo->tImageInfo.Height), 0.f };
+		m_tInfo.vRealSize = { float(pTexInfo->tImageInfo.Width * 1.3),  float(pTexInfo->tImageInfo.Height)/2, 0.f };
 
 		_vec3 vCenter = { _float(pTexInfo->tImageInfo.Width >> 1), _float(pTexInfo->tImageInfo.Height >> 1) , 0.f };
 		_matrix matScale, matTrans, matWorld;
 		D3DXMatrixScaling(&matScale, m_iMirror * m_tInfo.vSize.x, m_tInfo.vSize.y, 0.f);
-		D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x + CScroll_Manager::Get_Scroll(CScroll_Manager::X) + 100 * m_iMirror, m_tInfo.vPos.y + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
+		D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x + CScroll_Manager::Get_Scroll(CScroll_Manager::X) + 100 * -m_iMirror, m_tInfo.vPos.y + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
 		matWorld = matScale * matTrans;
 		if (CKey_Manager::Get_Instance()->Key_Pressing(KEY_F1))
 		{
@@ -85,14 +91,9 @@ void CNormalAttack::OnCollision(CGameObject* _TargetObj)
 
 		if (tempCollision)
 		{
-
 			m_HP -= 1;
-
 		}
-
 	}
-
-
 	}
 }
 

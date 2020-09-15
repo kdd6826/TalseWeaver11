@@ -21,5 +21,6 @@ public:
 public:
 	static CGameObject* Create(LPVOID* pArg = nullptr);
 private:
+	BOOL m_isMagic=false;
 };
 

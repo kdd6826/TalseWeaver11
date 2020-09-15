@@ -17,6 +17,7 @@
 #include <memory.h>
 #include <tchar.h>
 #include <list>
+#include <time.h>
 #include <vector>
 #include <map>
 #include <functional>
