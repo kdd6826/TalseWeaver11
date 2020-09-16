@@ -20,24 +20,35 @@ CTutorial::~CTutorial()
 HRESULT CTutorial::Ready_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create(L"../Data/TutorialData.dat"));
+	if (ObjManager->GetList(OBJ::OBJ_PLAYER)->size() == 0) {
+		CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER, CPlayer::Create());
+		}
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MOUSE, CMouse::Create());
-	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER, CPlayer::Create());
+	
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create({ 1300.f,500.f,0.f }));
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create({ 1400.f,750.f,0.f }));
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create({ 1500.f,350.f,0.f }));
-	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PORTAL, CPortal::Create({ 1730.f,850.f,0.f }));
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PORTAL, CPortal::Create({ 1630.f,850.f,0.f }, {1000.f,500.f,0.f},CScene_Manager::SCENE_TOWN1));
+	srand(unsigned(time(nullptr)));
 	return S_OK;
 }
 
 void CTutorial::Update_Scene()
 {
+	
+	iRandX = rand() % 1300;
+	
+	iRandY = rand() % 1000;
 	CGameObject_Manager::Get_Instance()->Update_GameObject();
-	_vec3 pos = CGameObject_Manager::Get_Instance()->Get_Player()->GetPos();
+	
+	if (ObjManager->GetList(OBJ::OBJ_MONSTER)->size() <= 8) {
+		{
 
-	if (pos.x > 1600 &&pos.x <1700&& pos.y > 900 && pos.y < 950)
-	{
-		CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_TOWN1);
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create({ iRandX+700,iRandY+300,0.f }));
+		}
 	}
+	
+	
 	
 }
 
@@ -73,10 +84,9 @@ void CTutorial::Release_Scene()
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_TERRAIN);
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_MONSTER);
 
-	_vec3 pos = { 1000.f,800.f,0.f };
-	CGameObject_Manager::Get_Instance()->Get_Player()->SetPos(pos);
-	CScroll_Manager::Init_ScrollXY();
-	CScroll_Manager::Set_Scroll({ -pos.x / 2,-pos.y / 2,0.f });
+	
 
-	dynamic_cast<CPlayer*>(CGameObject_Manager::Get_Instance()->Get_Player())->StopAStar();
+	
+
+	
 }

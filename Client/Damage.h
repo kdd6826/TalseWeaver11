@@ -15,12 +15,13 @@ public:
 	virtual void Render_GameObject() override;
 	virtual void Release_GameObject() override;
 	virtual void OnCollision(CGameObject* _TargetObj) override;
-
 public:
+	void HitChange(_int HitNumber) { m_Hit = HitNumber; }
 	static CGameObject* Create(LPVOID* pArg = nullptr);
-	static CGameObject* Create(_vec3 vpos, float _Attack);
+	static CGameObject* Create(_vec3 vpos, float _Attack,int HitChangeNum);
 	
 private:
 	int m_iAttackFont[5];
+	int m_Hit = 0;
 };
 

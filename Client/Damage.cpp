@@ -78,12 +78,23 @@ void CDamage::Render_GameObject()
 		m_iAttackFont[2] = INT(m_fAttack) / 100%10;
 		m_iAttackFont[3] = INT(m_fAttack) / 1000;
 	}
-
+	if (m_Hit ==0)
+	{
+		m_szFrameKey = L"PlayerHNumber";
+	}
+	if (m_Hit == 1)
+	{
+		m_szFrameKey = L"DmgFont";
+	}
+	if (m_Hit == 2)
+	{
+		m_szFrameKey = L"MagicDmgFont";
+	}
 	//1의자리
 	if (m_fAttack > 0)
 	{
 
-		pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"Effect", L"PlayerHNumber", m_iAttackFont[0]);
+		pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"Effect", m_szFrameKey, m_iAttackFont[0]);
 		if (nullptr == pTexInfo)
 			return;
 		_matrix matScale, matTrans, matWorld;
@@ -99,7 +110,7 @@ void CDamage::Render_GameObject()
 	//10의자리
 	if (m_fAttack >= 10)
 	{
-		pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"Effect", L"PlayerHNumber", m_iAttackFont[1]);
+		pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"Effect", m_szFrameKey, m_iAttackFont[1]);
 		if (nullptr == pTexInfo)
 			return;
 		_matrix matScale, matTrans, matWorld;
@@ -113,7 +124,7 @@ void CDamage::Render_GameObject()
 	//100의자리
 	if (m_fAttack >= 100)
 	{
-		pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"Effect", L"PlayerHNumber", m_iAttackFont[2]);
+		pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"Effect", m_szFrameKey, m_iAttackFont[2]);
 		if (nullptr == pTexInfo)
 			return;
 		_matrix matScale, matTrans, matWorld;
@@ -127,7 +138,7 @@ void CDamage::Render_GameObject()
 	//1000의자리
 	if (m_fAttack >= 1000)
 	{
-		pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"Effect", L"PlayerHNumber", m_iAttackFont[3]);
+		pTexInfo = CTexture_Manager::Get_Instance()->Get_TexInfo(L"Effect", m_szFrameKey, m_iAttackFont[3]);
 		if (nullptr == pTexInfo)
 			return;
 		_matrix matScale, matTrans, matWorld;
@@ -171,12 +182,14 @@ CGameObject* CDamage::Create(LPVOID* pArg)
 	return pInstnace;
 }
 
-CGameObject* CDamage::Create(_vec3 vpos,float _Attack)
+CGameObject* CDamage::Create(_vec3 vpos,float _Attack, int HitChangeNum)
 {
 	CGameObject* pInstnace = new CDamage;
 	if (FAILED(pInstnace->Ready_GameObject()))
 		return nullptr;
 	pInstnace->SetPos(vpos);
 	pInstnace->SetAttack(_Attack);
+	dynamic_cast<CDamage*>(pInstnace)->HitChange(HitChangeNum);
+	
 	return pInstnace;
 }

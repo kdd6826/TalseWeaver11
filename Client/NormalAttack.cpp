@@ -4,7 +4,7 @@
 #include "KeyManager.h"
 CNormalAttack::CNormalAttack()
 {
-	m_ObjId = OBJ::OBJ_ATTACK;
+	m_ObjId = OBJ::OBJ_PLAYER_AD_ATTACK;
 	ZeroMemory(&m_tFrame, sizeof(FRAME));
 }
 
@@ -22,10 +22,23 @@ HRESULT CNormalAttack::Ready_GameObject()
 	m_tFrame = { 0,5 };
 	srand(unsigned(time(nullptr)));
 	int iRand = rand()%10;
-
-	m_fAttack = CGameObject_Manager::Get_Instance()->Get_Player()->GetAttack();
 	if (iRand < 5)
-		m_fAttack *= 2;
+	{
+		isCritical = true;
+	}
+	
+	if (isCritical)
+	{
+		m_fAttack = CGameObject_Manager::Get_Instance()->Get_Player()->GetAttack()*CGameObject_Manager::Get_Instance()->Get_Player()->GetCriticalDamage();
+	}
+	if (!isCritical)
+	{
+		m_fAttack = CGameObject_Manager::Get_Instance()->Get_Player()->GetAttack();
+	}
+	if (m_fAttack > 9999)
+	{
+		m_fAttack = 9999;
+	}
 	return S_OK;
 }
 
@@ -75,7 +88,8 @@ void CNormalAttack::Render_GameObject()
 		{
 		CGraphic_Device::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
 		CGraphic_Device::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture, nullptr, &vCenter, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
-	}
+		}
+
 }
 
 void CNormalAttack::Release_GameObject()

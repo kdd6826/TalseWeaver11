@@ -51,7 +51,8 @@ void CFrame_Manager::Render_FrameManager()
 	if (1.f < m_fFPS)
 	{
 		//프레임표시
-		wsprintf(m_szFPS, L"HP: %d", i);
+		wsprintf(m_szFPS, L"FPS: %d", m_iFPS);
+		/*wsprintf(m_szFPS, L"HP: %d", i);*/
 		m_iFPS = 0;
 		m_fFPS = 0.f;
 	}

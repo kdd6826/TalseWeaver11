@@ -20,7 +20,7 @@ public:
 	void MoveFrame(_float fSpeed = 1.f);
 public:
 	static CGameObject* Create(LPVOID* pArg = nullptr);
-	static CGameObject* Create(_vec3 vpos);
+	static CGameObject* Create(_vec3 vpos, _vec3 vPlayerPos, CScene_Manager::SCENE SceneNumber);
 private:
 
 };

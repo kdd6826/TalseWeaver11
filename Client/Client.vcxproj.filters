@@ -97,6 +97,15 @@
     <Filter Include="01.Obj\Monster\Attack">
       <UniqueIdentifier>{c0c4ba88-fd4a-4bf4-b359-ed702990a709}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Obj\Player\Attack\NormalAttack">
+      <UniqueIdentifier>{f3c086ec-686e-4fa7-8a2b-530680922d69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Player\Attack\ThunderBolt">
+      <UniqueIdentifier>{05764833-6827-493b-bac2-60acc94c2da2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Player\Effect">
+      <UniqueIdentifier>{a606b000-eeac-4684-98ed-f001f79305fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -192,14 +201,20 @@
     <ClInclude Include="Portal.h">
       <Filter>01.Obj\Portal</Filter>
     </ClInclude>
-    <ClInclude Include="NormalAttack.h">
-      <Filter>01.Obj\Player\Attack</Filter>
-    </ClInclude>
     <ClInclude Include="Damage.h">
       <Filter>01.Obj\Font</Filter>
     </ClInclude>
     <ClInclude Include="Monster_NormalAttack.h">
       <Filter>01.Obj\Monster\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalAttack.h">
+      <Filter>01.Obj\Player\Attack\NormalAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="ThunderBolt.h">
+      <Filter>01.Obj\Player\Attack\ThunderBolt</Filter>
+    </ClInclude>
+    <ClInclude Include="Critical.h">
+      <Filter>01.Obj\Player\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -290,14 +305,20 @@
     <ClCompile Include="Portal.cpp">
       <Filter>01.Obj\Portal</Filter>
     </ClCompile>
-    <ClCompile Include="NormalAttack.cpp">
-      <Filter>01.Obj\Player\Attack</Filter>
-    </ClCompile>
     <ClCompile Include="Damage.cpp">
       <Filter>01.Obj\Font</Filter>
     </ClCompile>
     <ClCompile Include="Monster_NormalAttack.cpp">
       <Filter>01.Obj\Monster\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalAttack.cpp">
+      <Filter>01.Obj\Player\Attack\NormalAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="ThunderBolt.cpp">
+      <Filter>01.Obj\Player\Attack\ThunderBolt</Filter>
+    </ClCompile>
+    <ClCompile Include="Critical.cpp">
+      <Filter>01.Obj\Player\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

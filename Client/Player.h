@@ -28,7 +28,7 @@ private:
 
 	//FRAME m_tFrame;
 	_matrix m_matRotate;
-	
+	bool isAStar;
 
 	wstring m_Normal;
 

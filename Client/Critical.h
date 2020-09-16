@@ -1,11 +1,11 @@
 #pragma once
 #include "GameObject.h"
-class CNormalAttack final : public CGameObject
+class CCritical final : public CGameObject
 {
 private:
-	CNormalAttack();
+	CCritical();
 public:
-	~CNormalAttack();
+	~CCritical();
 
 public:
 	// CGameObject을(를) 통해 상속됨
@@ -20,6 +20,6 @@ public:
 	static CGameObject* Create(LPVOID* pArg = nullptr);
 	static CGameObject* Create(_vec3 vpos);
 private:
-	
+
 };
 

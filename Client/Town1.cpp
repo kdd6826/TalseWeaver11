@@ -5,6 +5,7 @@
 #include "Monster.h"
 #include "BlueWolf.h"
 #include "Scene_Manager.h"
+#include "Portal.h"
 CTown1::CTown1()
 {
 }
@@ -17,10 +18,11 @@ CTown1::~CTown1()
 
 HRESULT CTown1::Ready_Scene()
 {
-	
+	dynamic_cast<CPlayer*>(CGameObject_Manager::Get_Instance()->Get_Player())->StopAStar();
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create(L"../Data/TileData.dat"));
-
-	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_MONSTER, CBlueWolf::Create());
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PORTAL, CPortal::Create({ 390.f,450.f,0.f }, { 750.f,600.f,0.f }, CScene_Manager::SCENE_SHOP));
+	CScroll_Manager::Init_ScrollXY();
+	CScroll_Manager::Set_Scroll({-400.f,-300.f,0.f});
 
 	return S_OK;
 }
@@ -29,12 +31,8 @@ void CTown1::Update_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Update_GameObject();
 
-	_vec3 pos = CGameObject_Manager::Get_Instance()->Get_Player()->GetPos();
 
-	if (pos.x > 365 && pos.x < 465 && pos.y > 475 && pos.y < 525)
-	{
-		CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_SHOP);
-	}
+	
 }
 
 void CTown1::LateUpdate_Scene()
@@ -68,5 +66,5 @@ void CTown1::Release_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_TERRAIN);
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_MONSTER);
-	dynamic_cast<CPlayer*>(CGameObject_Manager::Get_Instance()->Get_Player())->StopAStar();
+
 }

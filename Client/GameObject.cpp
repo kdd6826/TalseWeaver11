@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GameObject.h"
-#include "Scroll_Manager.h"
+
 
 CGameObject::CGameObject()
 {

@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Portal.h"
-#include "Monster.h"
+#include "Player.h"
 #include "KeyManager.h"
+#include "Scene_Manager.h"
 CPortal::CPortal()
 {
 	m_ObjId = OBJ::OBJ_PORTAL;
@@ -28,7 +29,7 @@ HRESULT CPortal::Ready_GameObject()
 	m_fSpeed = 2.f;
 	m_fAngle = 0.f;
 	m_fAttack = 5.f;
-		
+	
 	return S_OK;
 }
 
@@ -61,12 +62,12 @@ void CPortal::Render_GameObject()
 	if (nullptr == pTexInfo)
 		return;
 
-	m_tInfo.vRealSize = { float(pTexInfo->tImageInfo.Width * 1.3),  float(pTexInfo->tImageInfo.Height) / 2, 0.f };
+	m_tInfo.vRealSize = { float(pTexInfo->tImageInfo.Width),  float(pTexInfo->tImageInfo.Height), 0.f };
 
 	_vec3 vCenter = { _float(pTexInfo->tImageInfo.Width >> 1), _float(pTexInfo->tImageInfo.Height >> 1) , 0.f };
 	_matrix matScale, matTrans, matWorld;
 	D3DXMatrixScaling(&matScale, m_iMirror * m_tInfo.vSize.x, m_tInfo.vSize.y, 0.f);
-	D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x + CScroll_Manager::Get_Scroll(CScroll_Manager::X) + 100 * -m_iMirror, m_tInfo.vPos.y + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
+	D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x + CScroll_Manager::Get_Scroll(CScroll_Manager::X) , m_tInfo.vPos.y + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
 	matWorld = matScale * matTrans;
 	
 		CGraphic_Device::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
@@ -81,13 +82,13 @@ void CPortal::Release_GameObject()
 void CPortal::OnCollision(CGameObject* _TargetObj)
 {
 	switch (_TargetObj->GetObjId()) {
-	case OBJ::OBJ_MONSTER:
+	case OBJ::OBJ_PLAYER:
 	{
-		CMonster* tempCollision = dynamic_cast<CMonster*>(_TargetObj);
+		CPlayer* tempCollision = dynamic_cast<CPlayer*>(_TargetObj);
 
 		if (tempCollision)
 		{
-
+			m_HP -= 1;
 		}
 	}
 	}
@@ -111,11 +112,13 @@ CGameObject* CPortal::Create(LPVOID* pArg)
 	return pInstnace;
 }
 
-CGameObject* CPortal::Create(_vec3 vpos)
+CGameObject* CPortal::Create(_vec3 vpos,_vec3 vPlayerPos, CScene_Manager::SCENE SceneNumber)
 {
 	CGameObject* pInstnace = new CPortal;
 	if (FAILED(pInstnace->Ready_GameObject()))
 		return nullptr;
 	pInstnace->SetPos(vpos);
+	pInstnace->SetFirstPos(vPlayerPos);
+	pInstnace->SetSceneNumber(SceneNumber);
 	return pInstnace;
 }

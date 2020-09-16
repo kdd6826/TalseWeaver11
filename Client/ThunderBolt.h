@@ -1,11 +1,11 @@
 #pragma once
 #include "GameObject.h"
-class CNormalAttack final : public CGameObject
+class CThunderBolt final : public CGameObject
 {
 private:
-	CNormalAttack();
+	CThunderBolt();
 public:
-	~CNormalAttack();
+	~CThunderBolt();
 
 public:
 	// CGameObject을(를) 통해 상속됨
@@ -17,9 +17,10 @@ public:
 	virtual void OnCollision(CGameObject* _TargetObj) override;
 
 public:
+	void MoveFrame(_float fSpeed = 1.f);
 	static CGameObject* Create(LPVOID* pArg = nullptr);
 	static CGameObject* Create(_vec3 vpos);
 private:
-	
+
 };
 

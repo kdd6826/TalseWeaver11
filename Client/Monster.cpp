@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "NormalAttack.h"
 #include "Damage.h"
+#include "Critical.h"
+#include "ThunderBolt.h"
 CMonster::CMonster()
 {
 	m_ObjId = OBJ::OBJ_MONSTER;
@@ -70,11 +72,34 @@ void CMonster::OnCollision(CGameObject* _TargetObj)
 		}
 		break;
 	}
-	case OBJ::OBJ_ATTACK: {
+	case OBJ::OBJ_PLAYER_AD_ATTACK: {
 		CNormalAttack* tempSwordAttack = dynamic_cast<CNormalAttack*>(_TargetObj);
 		if (tempSwordAttack) {
 			m_HP -= _TargetObj->GetAttack();
-			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_DAMAGE, CDamage::Create({ m_tInfo.vPos.x-pTexInfo->tImageInfo.Width/2,m_tInfo.vPos.y - pTexInfo->tImageInfo.Height / 2,0.f },_TargetObj->GetAttack()));
+			if (_TargetObj->GetisCritical())
+			{
+				CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_EFFECT, CCritical::Create({ m_tInfo.vPos.x - pTexInfo->tImageInfo.Width / 2+100,m_tInfo.vPos.y - pTexInfo->tImageInfo.Height / 2,0.f }));
+			}
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_DAMAGE, CDamage::Create({ m_tInfo.vPos.x-pTexInfo->tImageInfo.Width/2,m_tInfo.vPos.y - pTexInfo->tImageInfo.Height / 2,0.f },_TargetObj->GetAttack(),1));
+
+			if (m_HP <= 0) {
+
+			}
+		}
+		break;
+	}
+	case OBJ::OBJ_PLAYER_AP_ATTACK: {
+		CThunderBolt* tempSwordAttack = dynamic_cast<CThunderBolt*>(_TargetObj);
+		if (tempSwordAttack) {
+			m_iTimer++;
+			if (m_iTimer == 3)
+			{
+				m_HP -= _TargetObj->GetAttack();
+				CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_DAMAGE, CDamage::Create({ m_tInfo.vPos.x - pTexInfo->tImageInfo.Width / 2,m_tInfo.vPos.y - pTexInfo->tImageInfo.Height / 2,0.f }, _TargetObj->GetAttack(), 2));
+				m_isSearch = true;
+				m_iTimer = 0;
+			}
+			
 
 			if (m_HP <= 0) {
 

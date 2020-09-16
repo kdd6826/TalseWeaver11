@@ -11,5 +11,8 @@ public:
 	virtual void Render_Scene()PURE;
 	virtual void Release_Scene()PURE;
 
+protected:
+	float iRandX;
+	float iRandY;
 };
 

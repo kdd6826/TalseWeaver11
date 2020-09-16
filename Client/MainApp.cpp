@@ -108,9 +108,42 @@ void CMainApp::Ready_MainApp()
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/WARPGATE/WarpGate/WarpGate%d.png", L"WARPGATE", L"WarpGate", 24)))
 		return;
 
+
+	//이펙트
 	//데미지 폰트
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/PlayerHNumber/%d.png", L"Effect", L"PlayerHNumber", 10)))
 		return;
+
+	//마법데미지폰트
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/MagicDmgFont/MagicDmgFont%d.png", L"Effect", L"MagicDmgFont", 10)))
+		return;
+
+	//물리데미지폰트
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/HitNumber/DmgFont%d.png", L"Effect", L"DmgFont", 10)))
+		return;
+
+	//크리티컬
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Critical/Critical%d.png", L"TextureEtc", L"Critical", 1)))
+		return;
+
+	//공격 스킬
+	//썬더볼트
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/ThunderBolt/Storm%d.png", L"Effect", L"ThunderBolt", 12)))
+		return;
+
+	//공격 이펙트
+	//플레이어 공격
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/PlayerHit/PlayerHit%d.png", L"Effect", L"PlayerHit", 4)))
+		return;
+	//몬스터공격
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/MonsterHit/MonsterHit%d.png", L"Effect", L"MonsterHit", 4)))
+		return;
+
+	//마법공격
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/MagicHit/MAgicHit%d.png", L"Effect", L"MagicHit", 4)))
+		return;
+
+	
 
 	//몬스터
 	//BLUEWOLF
@@ -125,6 +158,20 @@ void CMainApp::Ready_MainApp()
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/BlueWolf/WALK_LDOWN/Walk_LDown%d.png", L"BlueWolf", L"Walk_LDown", 6)))
 		return;
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/BlueWolf/WALK_LUP/Walk_LUp%d.png", L"BlueWolf", L"Walk_LUp", 6)))
+		return;
+
+	//DARKCOW
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/DarkCow/STAND_LDOWN/Stand_LDown%d.png", L"DarkCow", L"Stand_LDown", 6)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/DarkCow/STAND_LUP/Stand_LUp%d.png", L"DarkCow", L"Stand_LUp", 6)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/DarkCow/ATT_LDOWN/Attack_LDown%d.png", L"DarkCow", L"Attack_LDown", 10)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/DarkCow/ATT_LUP/Attack_LUp%d.png", L"DarkCow", L"Attack_LUp", 10)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/DarkCow/WALK_LDOWN/Walk_LDown%d.png", L"DarkCow", L"Walk_LDown", 6)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/DarkCow/WALK_LUP/Walk_LUp%d.png", L"DarkCow", L"Walk_LUp", 6)))
 		return;
 
 	CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_TUTORIAL);

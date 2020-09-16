@@ -160,6 +160,7 @@
     <ClInclude Include="BlueWolf.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Collision_Manager.h" />
+    <ClInclude Include="Critical.h" />
     <ClInclude Include="Damage.h" />
     <ClInclude Include="Frame_Manager.h" />
     <ClInclude Include="GameObject.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Texture_Manager.h" />
+    <ClInclude Include="ThunderBolt.h" />
     <ClInclude Include="Time_Manager.h" />
     <ClInclude Include="Town1.h" />
     <ClInclude Include="Tutorial.h" />
@@ -196,6 +198,7 @@
     <ClCompile Include="BlueWolf.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Collision_Manager.cpp" />
+    <ClCompile Include="Critical.cpp" />
     <ClCompile Include="Damage.cpp" />
     <ClCompile Include="Frame_Manager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -226,6 +229,7 @@
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Texture_Manager.cpp" />
+    <ClCompile Include="ThunderBolt.cpp" />
     <ClCompile Include="Time_Manager.cpp" />
     <ClCompile Include="Town1.cpp" />
     <ClCompile Include="Tutorial.cpp" />

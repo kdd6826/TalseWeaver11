@@ -23,7 +23,7 @@ public:
 protected:
 	bool m_isSearch = false;
 	bool m_Animation = false;
-
+	int m_iTimer = 0;
     // CGameObject을(를) 통해 상속됨
  
 };

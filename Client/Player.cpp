@@ -7,6 +7,8 @@
 #include "NormalAttack.h"
 #include "Damage.h"
 #include "Monster_NormalAttack.h"
+#include "Portal.h"
+#include "ThunderBolt.h"
 CPlayer::CPlayer()
 {
 	m_ObjId = OBJ::OBJ_PLAYER;
@@ -46,7 +48,7 @@ void CPlayer::RouteTrack()
 	isMovingCount = true;
 
 	//
-	if (10.f > fDist)
+	if (15.f > fDist)
 	{
 		BestList.pop_front();
 	}
@@ -113,7 +115,7 @@ void CPlayer::StopAStar()
 	list<TILE*>& BestList = CAStar::Get_Instance()->Get_BestList();
 	if (!BestList.empty())
 		BestList.pop_front();
-
+	isMoving = false;
 	return;
 }
 
@@ -223,6 +225,15 @@ int CPlayer::Update_GameObject()
 				m_fAttackTime = 0;
 				m_tFrame.fFrameStart = 0;
 				m_tFrame.fFrameEnd = 10;
+				isEvoluting = true;
+			}
+			if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_D))
+			{
+				isEvolution = true;
+				m_fAttackTime = 0;
+				m_tFrame.fFrameStart = 0;
+				m_tFrame.fFrameEnd = 10;
+				
 			}
 		}
 	}
@@ -267,12 +278,12 @@ int CPlayer::Update_GameObject()
 	{
 		if (m_fAttackTime > 0.5 && m_fAttackCount==0)
 		{
-			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_ATTACK, CNormalAttack::Create());
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER_AD_ATTACK, CNormalAttack::Create());
 			++m_fAttackCount;
 		}
 		if (m_fAttackTime > 1.5 && m_fAttackCount == 1)
 		{
-			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_ATTACK, CNormalAttack::Create());
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER_AD_ATTACK, CNormalAttack::Create());
 			++m_fAttackCount;
 		}
 		if (m_fAttackTime < 1.9)
@@ -287,7 +298,7 @@ int CPlayer::Update_GameObject()
 			
 			isAttack = false;
 			m_StateKey = L"STAND_";
-			m_tFrame.fFrameEnd = 10;
+			m_tFrame.fFrameEnd = 9;
 			m_tFrame.fFrameStart = 0;
 			m_fAttackCount = 0;
 		}
@@ -297,19 +308,26 @@ int CPlayer::Update_GameObject()
 
 		if (m_fAttackTime < 2.1)
 		{
-			m_fSpeed = 2.f;
 			m_fAttackTime += 0.1;
 			m_StateKey = L"EVOLUTION";
 			m_DirectionKey = L"";
 		}
-		else
+		if (m_fAttackTime >= 2.1&&isEvoluting == true)
 		{
 			m_fSpeed = 8.f;
 			isEvolution = false;
 			m_StateKey = L"STAND_";
-			isEvoluting = true;
-				
 		}
+		if (m_fAttackTime >= 2.1&&isEvoluting == false)
+		{
+			isEvolution = false;
+			m_StateKey = L"STAND_";
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER_AP_ATTACK,
+				CThunderBolt::Create({ CGameObject_Manager::Get_Instance()->Get_Mouse()->GetInfo()->vPos.x,
+										CGameObject_Manager::Get_Instance()->Get_Mouse()->GetInfo()->vPos.y-50.f,
+										0.f }));
+		}
+
 	}
 
 	if (!isAttack)
@@ -349,6 +367,7 @@ void CPlayer::LateUpdate_GameObject()
 		m_fSpeed = 2.f;
 		RouteTrack();
 		m_tFrame.fFrameEnd =7;
+		isEvoluting = false;
 	}
 }
 
@@ -359,9 +378,24 @@ void CPlayer::Render_GameObject()
 		return;
 	_vec3 vCenter = { _float(pTexInfo->tImageInfo.Width >> 1), _float(pTexInfo->tImageInfo.Height >> 1) , 0.f };
 	_matrix matScale, matTrans, matWorld;
-	D3DXMatrixScaling(&matScale, m_iMirror * m_tInfo.vSize.x, m_tInfo.vSize.y, 0.f);
-	D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x + CScroll_Manager::Get_Scroll(CScroll_Manager::X), m_tInfo.vPos.y + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
-	matWorld = matScale * matTrans;
+	int EvolutionPosY;
+
+	if (!isEvolution)
+	{
+		EvolutionPosY = 0;
+	}
+	if (isEvolution)
+	{
+		EvolutionPosY = -20;
+	}
+	
+
+		D3DXMatrixScaling(&matScale, m_iMirror * m_tInfo.vSize.x, m_tInfo.vSize.y, 0.f);
+		D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x + CScroll_Manager::Get_Scroll(CScroll_Manager::X), m_tInfo.vPos.y + CScroll_Manager::Get_Scroll(CScroll_Manager::Y)+ EvolutionPosY, 0.f);
+		matWorld = matScale * matTrans;
+	
+
+
 	CGraphic_Device::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
 	CGraphic_Device::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture, nullptr, &vCenter, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 
@@ -410,8 +444,22 @@ void CPlayer::OnCollision(CGameObject* _TargetObj)
 		if (tempCollision)
 		{
 			m_HP -= _TargetObj->GetAttack();
-			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_DAMAGE, CDamage::Create({ m_tInfo.vPos.x - pTexInfo->tImageInfo.Width / 5,m_tInfo.vPos.y - pTexInfo->tImageInfo.Height / 3,0.f }, _TargetObj->GetAttack()));
+			if(nullptr==pTexInfo)
+				return;
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_DAMAGE, CDamage::Create({ m_tInfo.vPos.x - pTexInfo->tImageInfo.Width / 5,m_tInfo.vPos.y - pTexInfo->tImageInfo.Height / 3,0.f }, _TargetObj->GetAttack(),0));
 
+		}
+		break;
+	}
+	case OBJ::OBJ_PORTAL:
+	{
+		CPortal* tempCollision = dynamic_cast<CPortal*>(_TargetObj);
+		if (tempCollision)
+		{
+			CScene_Manager::Get_Instance()->Change_Scene(_TargetObj->GetSceneNumber());
+			SetPos(_TargetObj->GetFirstPos());
+			CScroll_Manager::Init_ScrollXY();
+			CScroll_Manager::Set_Scroll({ _TargetObj->GetFirstPos() });
 		}
 		break;
 	}

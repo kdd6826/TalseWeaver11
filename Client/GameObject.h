@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject_Manager.h"
+#include "Scene_Manager.h"
 class CGameObject abstract
 {
 public:
@@ -27,7 +28,14 @@ public:
 	void SetAttack(float& _attack) {
 		m_fAttack = _attack;
 	}
+	void SetSceneNumber(CScene_Manager::SCENE& SceneNumber) {
+		iSceanNumber = SceneNumber;
+	}
+	bool GetisCritical() { return isCritical; }
 	float GetAttack(){ return m_fAttack; }
+	float GetCriticalDamage() { return m_fCriticalDamage; }
+	_vec3 GetFirstPos() { return FirstPos; }
+	CScene_Manager::SCENE GetSceneNumber() { return iSceanNumber; }
 	int GetHp() { return m_HP; }
 	RECT* GetRect() { return &m_tRect; }
 	INFO* GetInfo() { return &m_tInfo; }
@@ -39,6 +47,8 @@ public:
 	void Update_Rect_Object();
 
 protected:
+	CScene_Manager::SCENE iSceanNumber = CScene_Manager::SCENE::SCENE_END;
+	int m_Alpha=255;
 	INT m_Lv = 0;
 	INT m_Exp = 0;
 	INT m_MaxExp = 0;
@@ -58,6 +68,7 @@ protected:
 	FLOAT forceY=0.f;
 	bool isMoving = false;
 	bool isAttack = false;
+	bool isCritical = false;
 	RECT m_tRect;
 	OBJ::ID m_ObjId = OBJ::OBJ_END;
 	wstring m_StateKey;
