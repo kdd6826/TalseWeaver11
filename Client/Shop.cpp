@@ -18,22 +18,20 @@ CShop::~CShop()
 
 HRESULT CShop::Ready_Scene()
 {
+
 	dynamic_cast<CPlayer*>(CGameObject_Manager::Get_Instance()->Get_Player())->StopAStar();
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create(L"../Data/ShopData.dat"));
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PORTAL, CPortal::Create({ 950.f,650.f,0.f }, { 200.f,550.f,0.f }, CScene_Manager::SCENE_TOWN1));
 	
-
-
-	CScroll_Manager::Init_ScrollXY();
-	CScroll_Manager::Set_Scroll(-CGameObject_Manager::Get_Instance()->Get_Player()->GetInfo()->vPos);
 	return S_OK;
 }
 
 void CShop::Update_Scene()
 {
+	ReScroll();
 	CGameObject_Manager::Get_Instance()->Update_GameObject();
 	_vec3 pos = CGameObject_Manager::Get_Instance()->Get_Player()->GetPos();
-
+	
 	
 }
 
@@ -69,10 +67,7 @@ void CShop::Release_Scene()
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_TERRAIN);
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_MONSTER);
 
-	/*_vec3 pos = { 350.f,500.f,0.f };
-	CGameObject_Manager::Get_Instance()->Get_Player()->SetPos(pos);*/
-	/*CScroll_Manager::Init_ScrollXY();*/
-	/*CScroll_Manager::Set_Scroll({ -pos.x / 2,-pos.y / 2,0.f });*/
+
 
 	
 }

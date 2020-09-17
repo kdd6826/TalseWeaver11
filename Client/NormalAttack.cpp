@@ -21,8 +21,8 @@ HRESULT CNormalAttack::Ready_GameObject()
 	//////
 	m_tFrame = { 0,5 };
 	srand(unsigned(time(nullptr)));
-	int iRand = rand()%10;
-	if (iRand < 5)
+	int iRand = rand() % 100;
+	if (iRand < CGameObject_Manager::Get_Instance()->Get_Player()->GetCritical())
 	{
 		isCritical = true;
 	}
@@ -84,7 +84,7 @@ void CNormalAttack::Render_GameObject()
 		D3DXMatrixScaling(&matScale, m_iMirror * m_tInfo.vSize.x, m_tInfo.vSize.y, 0.f);
 		D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x + CScroll_Manager::Get_Scroll(CScroll_Manager::X) + 100 * -m_iMirror, m_tInfo.vPos.y + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
 		matWorld = matScale * matTrans;
-		if (CKey_Manager::Get_Instance()->Key_Pressing(KEY_F1))
+		if (CKey_Manager::Get_Instance()->Key_Pressing(KEY_P))
 		{
 		CGraphic_Device::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
 		CGraphic_Device::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture, nullptr, &vCenter, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));

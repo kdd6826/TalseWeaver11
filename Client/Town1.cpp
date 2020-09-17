@@ -18,11 +18,13 @@ CTown1::~CTown1()
 
 HRESULT CTown1::Ready_Scene()
 {
+	
 	dynamic_cast<CPlayer*>(CGameObject_Manager::Get_Instance()->Get_Player())->StopAStar();
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_TERRAIN, CTerrain::Create(L"../Data/TileData.dat"));
+	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PORTAL, CPortal::Create({ 700.f,750.f,0.f }, { 750.f,600.f,0.f }, CScene_Manager::SCENE_TUTORIAL));
 	CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PORTAL, CPortal::Create({ 390.f,450.f,0.f }, { 750.f,600.f,0.f }, CScene_Manager::SCENE_SHOP));
-	CScroll_Manager::Init_ScrollXY();
-	CScroll_Manager::Set_Scroll({-400.f,-300.f,0.f});
+
+
 
 	return S_OK;
 }
@@ -30,9 +32,7 @@ HRESULT CTown1::Ready_Scene()
 void CTown1::Update_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Update_GameObject();
-
-
-	
+	ReScroll();
 }
 
 void CTown1::LateUpdate_Scene()
@@ -66,5 +66,7 @@ void CTown1::Release_Scene()
 {
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_TERRAIN);
 	CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_MONSTER);
-
+	if (ObjManager->GetList(OBJ::OBJ_PORTAL)->size() == 1) {
+		CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_PORTAL);
+	}
 }

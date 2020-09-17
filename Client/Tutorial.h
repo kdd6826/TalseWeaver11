@@ -14,6 +14,6 @@ public:
 	virtual void Render_Scene() override;
 	virtual void Release_Scene() override;
 public:
-	CGameObject_Manager* ObjManager = CGameObject_Manager::Get_Instance();
+	
 };
 

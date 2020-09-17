@@ -16,9 +16,11 @@ public:
 	virtual void OnCollision(CGameObject* _TargetObj)=0;
 public:
 	_vec3 GetPos() { return m_tInfo.vPos; }
+	_float GetAngle() { return m_fAngle; }
 	void SetName(const TCHAR* _name) {
 		lstrcpy(m_tInfo.chName, _name);
 	}
+	void SetHp(int _Hp) { m_HP = _Hp; }
 	void SetPos(_vec3& _pos) {
 		m_tInfo.vPos = _pos;
 	}
@@ -33,10 +35,18 @@ public:
 	}
 	bool GetisCritical() { return isCritical; }
 	float GetAttack(){ return m_fAttack; }
+	float GetDef() { return m_fDef; }
+	float GetCritical() { return m_fCritical; }
 	float GetCriticalDamage() { return m_fCriticalDamage; }
 	_vec3 GetFirstPos() { return FirstPos; }
 	CScene_Manager::SCENE GetSceneNumber() { return iSceanNumber; }
 	int GetHp() { return m_HP; }
+	int GetMaxHp() { return m_MaxHP; }
+	int GetMp() { return m_MP; }
+	int GetMaxMp() { return m_MaxMP; }
+	int GetSp() { return m_SP; }
+	int GetMaxSp() { return m_MaxSP; }
+	int GetLv() { return m_Lv; }
 	RECT* GetRect() { return &m_tRect; }
 	INFO* GetInfo() { return &m_tInfo; }
 	int* GetMirror() { return &m_iMirror; }
@@ -54,10 +64,13 @@ protected:
 	INT m_MaxExp = 0;
 	INT  m_HP = 1;
 	INT  m_MaxHP = 1;
+	INT m_HpGen = 0;
 	INT  m_MP = 1;
 	INT  m_MaxMP = 1;
+	INT m_MpGen = 0;
 	INT  m_SP = 1;
 	INT  m_MaxSP = 1;
+	INT m_SpGen = 0;
 	INT m_iMirror = 1;
 	float m_fAttackCount = 0;
 	float m_fAttack = 0.f;
@@ -66,6 +79,9 @@ protected:
 	float m_fCriticalDamage = 0.f;
 	FLOAT forceX=0.f;
 	FLOAT forceY=0.f;
+	bool HpGen = false;
+	bool MpGen = false;
+	bool SpGen = false;
 	bool isMoving = false;
 	bool isAttack = false;
 	bool isCritical = false;

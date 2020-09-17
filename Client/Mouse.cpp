@@ -2,6 +2,10 @@
 #include "Mouse.h"
 #include "Monster.h"
 #include "KeyManager.h"
+#include "StatusBar.h"
+#include "EquipBar.h"
+#include "InvenBar.h"
+#include "Portal.h"
 CMouse::CMouse()
 {
 	m_ObjId = OBJ::OBJ_MOUSE;
@@ -44,17 +48,21 @@ HRESULT CMouse::Ready_GameObject()
 
 int CMouse::Update_GameObject()
 {
-	m_szFrameKey = L"Normal";
+	if (m_szFrameKey != L"Normal")
+	{
+		m_szFrameKey = L"Normal";
+		m_tFrame = { 0,12 };
+	}
 	POINT pt = {};
 	GetCursorPos(&pt);
 	ScreenToClient(g_hWND, &pt);
 	D3DXVECTOR3 vMouse = { float(pt.x) - CScroll_Manager::Get_Scroll(CScroll_Manager::X), float(pt.y) - CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f };
 	m_tInfo.vPos = vMouse;
 	MoveFrame();
-	if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_F2))
-	{
-		m_isMagic = true;
-	}
+	//if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_F2))
+	//{
+	//	m_isMagic = true;
+	//}
 	if (m_isMagic)
 	{
 		m_szFrameKey = L"Magic";
@@ -100,12 +108,45 @@ void CMouse::OnCollision(CGameObject* _TargetObj)
 			CMonster* tempCollision = dynamic_cast<CMonster*>(_TargetObj);
 			if (tempCollision)
 			{
-
+				if (m_szFrameKey != L"Battle")
+				{
+					m_szFrameKey = L"Battle";
+					m_tFrame = { 0,7 };
+				}
+				
+			}
+			break;
+		}
+		case OBJ::OBJ_BUTTON:
+		{
+			CEquipBar* tempCollision = dynamic_cast<CEquipBar*>(_TargetObj);
+			if (tempCollision)
+			{
 				m_szFrameKey = L"Battle";
+			}
+			break;
+			CStatusBar* temp2Collision = dynamic_cast<CStatusBar*>(_TargetObj);
+			if (temp2Collision)
+			{
+				m_szFrameKey = L"Battle";
+			}
+			break;
+		}
+		case OBJ::OBJ_PORTAL:
+		{
+			CPortal* tempCollision = dynamic_cast<CPortal*>(_TargetObj);
+			if (tempCollision)
+			{
+				if (m_szFrameKey != L"Gate")
+				{
+					m_szFrameKey = L"Gate";
+					m_tFrame = { 0,3 };
+				}
 
 			}
-
+			break;
 		}
+
 		}
 	
 }

@@ -114,16 +114,6 @@ HRESULT CTerrain::Ready_GameObject()
 
 int CTerrain::Update_GameObject()
 {
-	_float fScrollSpeed = 300.f * CTime_Manager::Get_Instance()->Get_DeltaTime();
-	if (GetAsyncKeyState(VK_LEFT))
-		CScroll_Manager::Set_Scroll({ 5.f, 0.f, 0.f }); 
-	if (GetAsyncKeyState(VK_RIGHT))
-		CScroll_Manager::Set_Scroll({ -5.f, 0.f, 0.f });
-	if (GetAsyncKeyState(VK_UP))
-		CScroll_Manager::Set_Scroll({ 0.f,5.f,  0.f });
-	if (GetAsyncKeyState(VK_DOWN))
-		CScroll_Manager::Set_Scroll({ 0.f,-5.f,  0.f });
-
 	return 0;
 }
 
@@ -148,7 +138,7 @@ void CTerrain::Render_GameObject()
 		D3DXMatrixScaling(&matScale, m_vecTile[i]->vSize.x, m_vecTile[i]->vSize.y, 0.f); 
 		D3DXMatrixTranslation(&matTrans, m_vecTile[i]->vPos.x + CScroll_Manager::Get_Scroll(CScroll_Manager::X), m_vecTile[i]->vPos.y + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
 		matWorld = matScale * matTrans; 
-		if (CKey_Manager::Get_Instance()->Key_Pressing(KEY_F1))
+		if (CKey_Manager::Get_Instance()->Key_Pressing(KEY_P))
 		{
 			if (m_vecTile[i]->vPos.x + CScroll_Manager::Get_Scroll(CScroll_Manager::X) < WINCX + 100 && m_vecTile[i]->vPos.x + CScroll_Manager::Get_Scroll(CScroll_Manager::X) > -100 && m_vecTile[i]->vPos.y + CScroll_Manager::Get_Scroll(CScroll_Manager::Y) > -100 && m_vecTile[i]->vPos.y + CScroll_Manager::Get_Scroll(CScroll_Manager::Y) < WINCY + 100)
 			{

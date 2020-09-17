@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+class CScene;
+class CScene_Manager;
 class CPortal final : public CGameObject
 {
 private:
@@ -22,6 +24,7 @@ public:
 	static CGameObject* Create(LPVOID* pArg = nullptr);
 	static CGameObject* Create(_vec3 vpos, _vec3 vPlayerPos, CScene_Manager::SCENE SceneNumber);
 private:
-
+	CScene_Manager::SCENE m_eCurScene;
+	bool m_isCount = false;
 };
 

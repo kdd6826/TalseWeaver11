@@ -35,6 +35,14 @@ extern HWND g_hWND;
 #define		KEY_F8			0x00010000
 #define		KEY_F9			0x00020000
 #define		KEY_F10			0x00040000
+#define		KEY_F			0x00080000
+#define		KEY_P			0x00100000
+#define		KEY_C			0x00200000
+#define		KEY_V			0x00400000
+
+#define Damage 20.f
+
+
 
 #define OBJ_DEAD 1
 #define OBJ_NOEVENT 0 

@@ -9,6 +9,10 @@
 #include "Monster_NormalAttack.h"
 #include "Portal.h"
 #include "ThunderBolt.h"
+#include "ChainAttack.h"
+#include "MultiAttack.h"
+#include "StatusWindow.h"
+
 CPlayer::CPlayer()
 {
 	m_ObjId = OBJ::OBJ_PLAYER;
@@ -144,11 +148,12 @@ HRESULT CPlayer::Ready_GameObject()
 	m_MP = m_MaxMP;
 	m_SP = m_MaxSP;
 
-	
-
-	m_fAttack = 10.f;
-	m_fDef = 1.f;
-	m_fCritical = 0.1f;
+	HpGen = true;
+	MpGen = true;
+	SpGen = true;
+	m_fAttack = Damage;
+	m_fDef = 0.f;
+	m_fCritical = 100.f;
 	m_fCriticalDamage = 2.f;
 	
 	return S_OK;
@@ -161,6 +166,16 @@ int CPlayer::Update_GameObject()
 	//{
 	//	return OBJ_DEAD;
 	//}
+	
+	if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_C)&& CGameObject_Manager::Get_Instance()->GetList(OBJ::OBJ_STATUS)->size() == 0)
+	{
+		CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_STATUS, CStatusWindow::Create());
+	}
+
+	if (CKey_Manager::Get_Instance()->Key_UP(KEY_C) && CGameObject_Manager::Get_Instance()->GetList(OBJ::OBJ_STATUS)->size() == 1)
+	{
+		CGameObject_Manager::Get_Instance()->Release_GameObject(OBJ::OBJ_STATUS);
+	}
 
 	CGameObject::Update_Rect_Object();
 
@@ -175,8 +190,18 @@ int CPlayer::Update_GameObject()
 	MoveFrame(m_fSpeed);
 
 
-
-
+	if (HpGen&&m_HP<m_MaxHP)
+	{
+		m_HP += 1;
+	}
+	if (MpGen&&m_MP<m_MaxMP)
+	{
+		m_MP += 1;
+	}
+	if (SpGen&&m_SP<m_MaxSP)
+	{
+		m_SP += 5;
+	}
 	if (isMoving)
 	{
 		m_StateKey = L"RUN_";
@@ -193,8 +218,6 @@ int CPlayer::Update_GameObject()
 	{
 		if (CGameObject_Manager::Get_Instance()->Get_Mouse()->GetState() == L"Battle")
 		{
-
-
 			if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_LBUTTON))
 			{
 
@@ -219,21 +242,59 @@ int CPlayer::Update_GameObject()
 				m_tFrame.fFrameEnd = 13;
 				
 			}
-			if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_S))
+			//공속버프
+
+			if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_F3))
 			{
-				isEvolution = true;
-				m_fAttackTime = 0;
-				m_tFrame.fFrameStart = 0;
-				m_tFrame.fFrameEnd = 10;
-				isEvoluting = true;
+				if (m_MP >= 100)
+				{
+					m_MP -= 100;
+					isEvolution = true;
+					m_fAttackTime = 0;
+					m_tFrame.fFrameStart = 0;
+					m_tFrame.fFrameEnd = 10;
+					isEvoluting = true;
+					SpGen = false;
+				}
 			}
-			if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_D))
+			//썬더볼트
+			if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_F4))
 			{
-				isEvolution = true;
-				m_fAttackTime = 0;
-				m_tFrame.fFrameStart = 0;
-				m_tFrame.fFrameEnd = 10;
-				
+				if (m_MP >= 50)
+				{
+					m_MP -= 50;
+					isEvolution = true;
+					m_fAttackTime = 0;
+					m_tFrame.fFrameStart = 0;
+					m_tFrame.fFrameEnd = 10;
+					isThunderBolt = true;
+				}
+			}
+			//체인어택
+			if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_F2))
+			{
+				if (m_MP >= 100)
+				{
+					m_MP -= 100;
+					isEvolution = true;
+					m_fAttackTime = 0;
+					m_tFrame.fFrameStart = 0;
+					m_tFrame.fFrameEnd = 10;
+					isChainAttack = true;
+				}
+			}
+			//멀티어택
+			if (CKey_Manager::Get_Instance()->Key_DOWN(KEY_F1))
+			{
+				if (m_MP >= 200)
+				{
+					m_MP -= 200;
+					isEvolution = true;
+					m_fAttackTime = 0;
+					m_tFrame.fFrameStart = 0;
+					m_tFrame.fFrameEnd = 10;
+					isMultiAttack = true;
+				}
 			}
 		}
 	}
@@ -315,10 +376,12 @@ int CPlayer::Update_GameObject()
 		if (m_fAttackTime >= 2.1&&isEvoluting == true)
 		{
 			m_fSpeed = 8.f;
+			m_fAttack *= 5.f;
+			
 			isEvolution = false;
 			m_StateKey = L"STAND_";
 		}
-		if (m_fAttackTime >= 2.1&&isEvoluting == false)
+		if (m_fAttackTime >= 2.1&&isEvoluting == false&&isThunderBolt)
 		{
 			isEvolution = false;
 			m_StateKey = L"STAND_";
@@ -326,11 +389,50 @@ int CPlayer::Update_GameObject()
 				CThunderBolt::Create({ CGameObject_Manager::Get_Instance()->Get_Mouse()->GetInfo()->vPos.x,
 										CGameObject_Manager::Get_Instance()->Get_Mouse()->GetInfo()->vPos.y-50.f,
 										0.f }));
+			isThunderBolt = false;
 		}
+		if (m_fAttackTime >= 2.1 && isEvoluting == false && isChainAttack)
+		{
+			isEvolution = false;
+			m_StateKey = L"STAND_";
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER_AD_ATTACK,
+				CChainAttack::Create({ m_tInfo.vPos }, L"ChainD"));				 
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER_AD_ATTACK,
+				CChainAttack::Create({ m_tInfo.vPos }, L"ChainL"));				 
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER_AD_ATTACK,
+				CChainAttack::Create({ m_tInfo.vPos }, L"ChainLD"));			 
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER_AD_ATTACK,
+				CChainAttack::Create({ m_tInfo.vPos }, L"ChainLU"));			 
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER_AD_ATTACK,
+				CChainAttack::Create({ m_tInfo.vPos }, L"ChainR"));				 
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER_AD_ATTACK,
+				CChainAttack::Create({ m_tInfo.vPos }, L"ChainRD"));			 
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER_AD_ATTACK,
+				CChainAttack::Create({ m_tInfo.vPos }, L"ChainRU"));			 
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER_AD_ATTACK,
+				CChainAttack::Create({ m_tInfo.vPos }, L"ChainU"));
+			isChainAttack = false;
+		}
+		if (m_fAttackTime >= 2.1 && isEvoluting == false && isMultiAttack)
+		{
+			isEvolution = false;
+			m_StateKey = L"STAND_";
+			CGameObject_Manager::Get_Instance()->Add_GameObject(OBJ::OBJ_PLAYER_AD_ATTACK,
+				CMultiAttack::Create({ m_tInfo.vPos }));
 
+			isMultiAttack = false;
+		}
 	}
-
-	if (!isAttack)
+	if (m_fSpeed == 8.f)
+	{
+		m_SP -= 5;
+		if (m_SP <= 0)
+		{
+			m_fSpeed = 2;
+			SpGen = true;
+		}
+	}
+	if (!isAttack&&!isEvolution)
 	{
 		if (CGameObject_Manager::Get_Instance()->Get_Mouse()->GetState() == L"Normal")
 		{
@@ -365,9 +467,11 @@ void CPlayer::LateUpdate_GameObject()
 	if (isMoving)
 	{
 		m_fSpeed = 2.f;
+		m_fAttack = Damage;
 		RouteTrack();
 		m_tFrame.fFrameEnd =7;
 		isEvoluting = false;
+		SpGen = true;
 	}
 }
 

@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "BlueWolf.h"
 #include "Monster_NormalAttack.h"
+#include "Summon.h"
 CBlueWolf::CBlueWolf()
 {
 	m_ObjId = OBJ::OBJ_MONSTER;
+	
 	ZeroMemory(&m_tFrame, sizeof(FRAME));
 }
 
@@ -27,8 +29,9 @@ HRESULT CBlueWolf::Ready_GameObject()
 	m_tFrame = { 0.f, 5.f };
 	m_fSpeed = 2.f;
 	m_fAngle = 0.f;
-	m_fAttack = 5.f;
+	m_fAttack = 20.f;
 	m_HP = 1000;
+	
 	return S_OK;
 }
 
@@ -207,5 +210,6 @@ CGameObject* CBlueWolf::Create(_vec3 vpos)
 		return nullptr;
 	pInstnace->SetPos(vpos);
 	pInstnace->SetFirstPos(vpos);
+
 	return pInstnace;
 }

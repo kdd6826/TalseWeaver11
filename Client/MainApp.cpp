@@ -4,6 +4,7 @@
 #include "KeyManager.h"
 #include "Frame_Manager.h"
 #include "AStar.h"
+#include "SoundMgr.h"
 CMainApp::CMainApp()
 	: m_pGraphic_Device(CGraphic_Device::Get_Instance())
 	, m_pTime_Manager(CTime_Manager::Get_Instance())
@@ -18,6 +19,7 @@ CMainApp::~CMainApp()
 
 void CMainApp::Ready_MainApp()
 {
+	CSoundMgr::Get_Instance()->Initialize();
 	m_pTime_Manager->Ready_TimeManager();
 	if (FAILED(CGraphic_Device::Get_Instance()->Ready_Graphic_Device()))
 		return;
@@ -27,6 +29,54 @@ void CMainApp::Ready_MainApp()
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Map/Map%d.png", L"TextureEtc", L"Map", 5)))
 		return;
 
+	//UI
+	//PLAYER STATUS
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Interface/PlayerStatus%d.png", L"UI", L"PlayerStatus", 1)))
+		return;
+	//HPBAR
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Interface/Status/HpBar%d.png", L"UI", L"HpBar", 1)))
+		return;
+	//MPBAR
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Interface/Status/MpBar%d.png", L"UI", L"MpBar", 1)))
+		return;
+	//SPBAR
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Interface/Status/SpBar%d.png", L"UI", L"SpBar", 1)))
+		return;
+	//QuickSlot
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Interface/UI/QuickSlot%d.png", L"UI", L"QuickSlot", 3)))
+		return;
+	//ICON
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Skill/ThunderBoltIcon%d.png", L"UI", L"ThunderBoltIcon", 1)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Skill/CoolTimeIcon%d.png", L"UI", L"CoolTimeIcon", 1)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Skill/ASBuffIcon%d.png", L"UI", L"ASBuffIcon", 1)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Skill/MultiAttackIcon%d.png", L"UI", L"MultiAttackIcon", 1)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Skill/ChainAttackIcon%d.png", L"UI", L"ChainAttackIcon", 1)))
+		return;
+
+	//Button
+	//캐릭터
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Interface/Button/StatusBarUp%d.png", L"UI", L"StatusBarUp", 1)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Interface/Button/StatusBarDown%d.png", L"UI", L"StatusBarDown", 1)))
+		return;
+	//장비
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Interface/Button/EquipBarUp%d.png", L"UI", L"EquipBarUp", 1)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Interface/Button/EquipBarDown%d.png", L"UI", L"EquipBarDown", 1)))
+		return;
+	//인벤토리
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Interface/Button/InvenBarUp%d.png", L"UI", L"InvenBarUp", 1)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Interface/Button/InvenBarDown%d.png", L"UI", L"InvenBarDown", 1)))
+		return;
+
+	//상태창
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../TextureEtc/Interface/Status/StatusWindow%d.png", L"UI", L"StatusWindow", 1)))
+		return;
 	//플레이어
 	//STAND
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Stage/Player/STAND_DOWN/STAND_DOWN%d.png", L"Player", L"STAND_DOWN", 10)))
@@ -131,6 +181,29 @@ void CMainApp::Ready_MainApp()
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/ThunderBolt/Storm%d.png", L"Effect", L"ThunderBolt", 12)))
 		return;
 
+	//멀티어택
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/MultiAttack/MultiAttack%d.png", L"Effect", L"MultiAttack", 41)))
+		return;
+
+	//체인어택
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/ChainD/Chain%d.png", L"Effect", L"ChainD", 10)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/ChainL/Chain%d.png", L"Effect", L"ChainL", 10)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/ChainLD/Chain%d.png", L"Effect", L"ChainLD", 10)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/ChainLU/Chain%d.png", L"Effect", L"ChainLU", 10)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/ChainR/RChain%d.png", L"Effect", L"ChainR", 10)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/ChainRD/RChain%d.png", L"Effect", L"ChainRD", 10)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/ChainRU/RChain%d.png", L"Effect", L"ChainRU", 10)))
+		return;
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/ChainU/Chain%d.png", L"Effect", L"ChainU", 10)))
+		return;
+
+
 	//공격 이펙트
 	//플레이어 공격
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/PlayerHit/PlayerHit%d.png", L"Effect", L"PlayerHit", 4)))
@@ -146,6 +219,10 @@ void CMainApp::Ready_MainApp()
 	
 
 	//몬스터
+	//소환이펙트
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/Effect/Summon/Sumon%d.png", L"Effect", L"Summon", 3)))
+		return;
+
 	//BLUEWOLF
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/BlueWolf/STAND_LDOWN/Stand_LDown%d.png", L"BlueWolf", L"Stand_LDown", 6)))
 		return;
@@ -160,6 +237,7 @@ void CMainApp::Ready_MainApp()
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/BlueWolf/WALK_LUP/Walk_LUp%d.png", L"BlueWolf", L"Walk_LUp", 6)))
 		return;
 
+
 	//DARKCOW
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/DarkCow/STAND_LDOWN/Stand_LDown%d.png", L"DarkCow", L"Stand_LDown", 6)))
 		return;
@@ -169,9 +247,9 @@ void CMainApp::Ready_MainApp()
 		return;
 	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/DarkCow/ATT_LUP/Attack_LUp%d.png", L"DarkCow", L"Attack_LUp", 10)))
 		return;
-	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/DarkCow/WALK_LDOWN/Walk_LDown%d.png", L"DarkCow", L"Walk_LDown", 6)))
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/DarkCow/WALK_LDOWN/Walk_LDown%d.png", L"DarkCow", L"Walk_LDown", 8)))
 		return;
-	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/DarkCow/WALK_LUP/Walk_LUp%d.png", L"DarkCow", L"Walk_LUp", 6)))
+	if (FAILED(CTexture_Manager::Get_Instance()->Insert_Texture(CTexture_Manager::TEX_MULTI, L"../Texture/DarkCow/WALK_LUP/Walk_LUp%d.png", L"DarkCow", L"Walk_LUp", 8)))
 		return;
 
 	CScene_Manager::Get_Instance()->Change_Scene(CScene_Manager::SCENE_TUTORIAL);
@@ -206,4 +284,5 @@ void CMainApp::Release_MainApp()
 	CScene_Manager::Destroy_Instance();
 	CTexture_Manager::Destroy_Instance();
 	m_pGraphic_Device->Destroy_Instance();
+	CSoundMgr::Destroy_Instance();
 }

@@ -66,7 +66,7 @@ void CMonster_NormalAttack::Render_GameObject()
 	D3DXMatrixScaling(&matScale, m_iMirror * m_tInfo.vSize.x, m_tInfo.vSize.y, 0.f);
 	D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x + CScroll_Manager::Get_Scroll(CScroll_Manager::X) + 100 * -m_iMirror, m_tInfo.vPos.y + CScroll_Manager::Get_Scroll(CScroll_Manager::Y), 0.f);
 	matWorld = matScale * matTrans;
-	if (CKey_Manager::Get_Instance()->Key_Pressing(KEY_F1))
+	if (CKey_Manager::Get_Instance()->Key_Pressing(KEY_P))
 	{
 		CGraphic_Device::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
 		CGraphic_Device::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture, nullptr, &vCenter, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));

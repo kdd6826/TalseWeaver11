@@ -23,5 +23,6 @@ public:
 private:
 	int m_iAttackFont[5];
 	int m_Hit = 0;
+	
 };
 

@@ -28,12 +28,20 @@ HRESULT CThunderBolt::Ready_GameObject()
 	//////
 	m_tFrame = { 0,11 };
 	srand(unsigned(time(nullptr)));
-	int iRand = rand() % 10;
-
-	m_fAttack = CGameObject_Manager::Get_Instance()->Get_Player()->GetAttack()*15;
-	if (iRand < 5)
-		m_fAttack *= 2;
-
+	int iRand = rand() % 100;
+	if (iRand < CGameObject_Manager::Get_Instance()->Get_Player()->GetCritical())
+	{
+		isCritical = true;
+	}
+	
+	if (isCritical)
+	{
+		m_fAttack = CGameObject_Manager::Get_Instance()->Get_Player()->GetAttack()*15*CGameObject_Manager::Get_Instance()->Get_Player()->GetCriticalDamage();
+	}
+	if (!isCritical)
+	{
+		m_fAttack = CGameObject_Manager::Get_Instance()->Get_Player()->GetAttack()*15;
+	}
 	if (m_fAttack > 9999)
 	{
 		m_fAttack = 9999;
@@ -49,7 +57,7 @@ int CThunderBolt::Update_GameObject()
 	{
 		return OBJ_DEAD;
 	}
-
+	m_fAngle = 10;
 	
 
 	

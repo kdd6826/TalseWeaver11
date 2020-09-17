@@ -12,11 +12,13 @@ CPortal::CPortal()
 CPortal::~CPortal()
 {
 	Release_GameObject();
+
 }
 
 HRESULT CPortal::Ready_GameObject()
 {
-
+	
+	
 	
 
 	m_tInfo.vSize = { 1.f, 1.f, 0.f };
@@ -35,19 +37,26 @@ HRESULT CPortal::Ready_GameObject()
 
 int CPortal::Update_GameObject()
 {
+	if (!m_isCount)
+	{
+		m_eCurScene=CScene_Manager::Get_Instance()->Get_SCENE();
+
+		m_isCount = true;
+	}
 	MoveFrame(2.f);
 
 	if (m_HP <= 0)
 	{
+		
 		return OBJ_DEAD;
 	}
-	
-	if (m_tFrame.fFrameStart >= m_tFrame.fFrameEnd)
+
+	if (m_eCurScene == CScene_Manager::Get_Instance()->Get_SCENE())
 	{
-		return OBJ_DEAD;
+		return OBJ_NOEVENT;;
 	}
-
-
+	else
+		return OBJ_DEAD;
 	return OBJ_NOEVENT;
 }
 
@@ -89,6 +98,7 @@ void CPortal::OnCollision(CGameObject* _TargetObj)
 		if (tempCollision)
 		{
 			m_HP -= 1;
+
 		}
 	}
 	}

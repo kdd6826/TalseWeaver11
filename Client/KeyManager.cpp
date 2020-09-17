@@ -30,8 +30,16 @@ void CKey_Manager::Update_KeyManager()
 		m_dwKey |= KEY_S;
 	if (GetAsyncKeyState('D') & 0x8000)
 		m_dwKey |= KEY_D;
+	if (GetAsyncKeyState('F') & 0x8000)
+		m_dwKey |= KEY_F;
 	if (GetAsyncKeyState('R') & 0x8000)
 		m_dwKey |= KEY_R;
+	if (GetAsyncKeyState('P') & 0x8000)
+		m_dwKey |= KEY_P;
+	if (GetAsyncKeyState('C') & 0x8000)
+		m_dwKey |= KEY_C;
+	if (GetAsyncKeyState('V') & 0x8000)
+		m_dwKey |= KEY_V;
 	if (GetAsyncKeyState(VK_F1) & 0x8000)
 		m_dwKey |= KEY_F1;
 	if (GetAsyncKeyState(VK_F2) & 0x8000)

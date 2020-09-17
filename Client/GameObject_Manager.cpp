@@ -38,6 +38,7 @@ int CGameObject_Manager::Update_GameObject()
 			{
 				Safe_Delete(*iter);
 				iter = m_listGameObject[i].erase(iter);
+
 			}
 			else
 				++iter;
@@ -61,6 +62,8 @@ void CGameObject_Manager::LateUpdate_GameObject()
 	CCollisionManager::CollisionSphere(m_listGameObject[OBJ::OBJ_MOUSE], m_listGameObject[OBJ::OBJ_MONSTER]);
 	CCollisionManager::CollisionSphere(m_listGameObject[OBJ::OBJ_PLAYER_AD_ATTACK], m_listGameObject[OBJ::OBJ_MONSTER]);
 	CCollisionManager::CollisionSphere(m_listGameObject[OBJ::OBJ_PLAYER_AP_ATTACK], m_listGameObject[OBJ::OBJ_MONSTER]);
+	CCollisionManager::CollisionSphere(m_listGameObject[OBJ::OBJ_MOUSE], m_listGameObject[OBJ::OBJ_BUTTON]);
+	CCollisionManager::CollisionSphere(m_listGameObject[OBJ::OBJ_MOUSE], m_listGameObject[OBJ::OBJ_PORTAL]);
 }
 
 void CGameObject_Manager::Render_GameObject()

@@ -9,6 +9,7 @@ private:
 public:
 	CGameObject* Get_Terrain() { return m_listGameObject[OBJ::OBJ_TERRAIN].front(); }
 	CGameObject* Get_Player() { return m_listGameObject[OBJ::OBJ_PLAYER].front(); }
+	CGameObject* Get_Portal() { return m_listGameObject[OBJ::OBJ_PORTAL].front(); }
 	
 	CGameObject* Get_Mouse() { return m_listGameObject[OBJ::OBJ_MOUSE].front(); }
 	list <CGameObject*>* GetList(OBJ::ID eID) { return &m_listGameObject[eID]; }

@@ -25,6 +25,7 @@
 #include <iostream>
 using namespace std; 
 
+
 #include "d3d9.h"
 //#pragma comment(lib, "d3d9.lib")
 #include "d3dx9.h"
@@ -43,3 +44,12 @@ using namespace std;
 #include "GameObject_Manager.h"
 #include "Scroll_Manager.h"
 #include "Time_Manager.h"
+
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
+#include <io.h>
+#include "fmod.h"
+#pragma comment(lib, "fmodex_vc.lib")
+#include "SoundMgr.h"

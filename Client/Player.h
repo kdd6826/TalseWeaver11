@@ -35,6 +35,9 @@ private:
 	
 	bool isEvolution = false;
 	bool isEvoluting = false;
+	bool isThunderBolt = false;
+	bool isChainAttack = false;
+	bool isMultiAttack = false;
 	_float m_fAttackTime = 0;
 	bool isMovingCount = false;
 

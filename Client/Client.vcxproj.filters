@@ -106,6 +106,51 @@
     <Filter Include="01.Obj\Player\Effect">
       <UniqueIdentifier>{a606b000-eeac-4684-98ed-f001f79305fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Obj\Player\Attack\ChainAttack">
+      <UniqueIdentifier>{152d4916-6151-4c7f-95bf-4b06b2ed6c4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Monster\Effect">
+      <UniqueIdentifier>{f3d05c10-5c59-4c3b-9f83-b0b6bf5529c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Player\Attack\MultiAttack">
+      <UniqueIdentifier>{caf5c146-3cbd-4188-af37-a2318ec1edd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Monster\Monsters\BlueWolf">
+      <UniqueIdentifier>{025fd66e-9b21-4c1e-842a-44cf636cc26c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\Monster\Monsters\DarkCow">
+      <UniqueIdentifier>{39aef539-3c7f-472a-9ca6-cdcdb7ed9401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\UI">
+      <UniqueIdentifier>{5ffe3b32-60c1-4c67-9027-291e211a0d5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\UI\QuickSlot">
+      <UniqueIdentifier>{8ce1f0ac-c2f0-4e0d-8938-0626b662247f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\UI\Button">
+      <UniqueIdentifier>{f6286bfa-f338-4adc-942f-4e60fe89e224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\UI\PlayerStatus">
+      <UniqueIdentifier>{5a7c678d-c88e-4c90-a919-27241b502bd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\UI\PlayerStatus\SpBar">
+      <UniqueIdentifier>{534278af-e652-4ca6-92f6-1608869ffbef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\UI\PlayerStatus\MpBar">
+      <UniqueIdentifier>{2c93f86f-42c2-4885-9aa7-a6ff56b487ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\UI\PlayerStatus\HpBar">
+      <UniqueIdentifier>{da7c92ec-ded8-4112-8ad7-30ff91698336}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\UI\QuickSlot\SkillIcon">
+      <UniqueIdentifier>{5fe5eb03-cb62-4beb-93ec-184839206838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\UI\StatusWindow">
+      <UniqueIdentifier>{5e66d024-94ac-4e05-a1e0-6d26d229bb7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Manager\SoundManager">
+      <UniqueIdentifier>{f467bd5c-826a-4754-a57d-b9343005de59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -180,9 +225,6 @@
     <ClInclude Include="Monster.h">
       <Filter>01.Obj\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="BlueWolf.h">
-      <Filter>01.Obj\Monster\Monsters</Filter>
-    </ClInclude>
     <ClInclude Include="Town1.h">
       <Filter>Scene\Town</Filter>
     </ClInclude>
@@ -215,6 +257,54 @@
     </ClInclude>
     <ClInclude Include="Critical.h">
       <Filter>01.Obj\Player\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ChainAttack.h">
+      <Filter>01.Obj\Player\Attack\ChainAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Summon.h">
+      <Filter>01.Obj\Monster\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiAttack.h">
+      <Filter>01.Obj\Player\Attack\MultiAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueWolf.h">
+      <Filter>01.Obj\Monster\Monsters\BlueWolf</Filter>
+    </ClInclude>
+    <ClInclude Include="DarkCow.h">
+      <Filter>01.Obj\Monster\Monsters\DarkCow</Filter>
+    </ClInclude>
+    <ClInclude Include="HpBar.h">
+      <Filter>01.Obj\UI\PlayerStatus\HpBar</Filter>
+    </ClInclude>
+    <ClInclude Include="MpBar.h">
+      <Filter>01.Obj\UI\PlayerStatus\MpBar</Filter>
+    </ClInclude>
+    <ClInclude Include="SpBar.h">
+      <Filter>01.Obj\UI\PlayerStatus\SpBar</Filter>
+    </ClInclude>
+    <ClInclude Include="QuickSlot.h">
+      <Filter>01.Obj\UI\QuickSlot</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillIcon.h">
+      <Filter>01.Obj\UI\QuickSlot\SkillIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStatus.h">
+      <Filter>01.Obj\UI\PlayerStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusBar.h">
+      <Filter>01.Obj\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipBar.h">
+      <Filter>01.Obj\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="InvenBar.h">
+      <Filter>01.Obj\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusWindow.h">
+      <Filter>01.Obj\UI\StatusWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundMgr.h">
+      <Filter>02.Manager\SoundManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -284,9 +374,6 @@
     <ClCompile Include="Monster.cpp">
       <Filter>01.Obj\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="BlueWolf.cpp">
-      <Filter>01.Obj\Monster\Monsters</Filter>
-    </ClCompile>
     <ClCompile Include="Town1.cpp">
       <Filter>Scene\Town</Filter>
     </ClCompile>
@@ -319,6 +406,54 @@
     </ClCompile>
     <ClCompile Include="Critical.cpp">
       <Filter>01.Obj\Player\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="ChainAttack.cpp">
+      <Filter>01.Obj\Player\Attack\ChainAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="Summon.cpp">
+      <Filter>01.Obj\Monster\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiAttack.cpp">
+      <Filter>01.Obj\Player\Attack\MultiAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="BlueWolf.cpp">
+      <Filter>01.Obj\Monster\Monsters\BlueWolf</Filter>
+    </ClCompile>
+    <ClCompile Include="DarkCow.cpp">
+      <Filter>01.Obj\Monster\Monsters\DarkCow</Filter>
+    </ClCompile>
+    <ClCompile Include="HpBar.cpp">
+      <Filter>01.Obj\UI\PlayerStatus\HpBar</Filter>
+    </ClCompile>
+    <ClCompile Include="MpBar.cpp">
+      <Filter>01.Obj\UI\PlayerStatus\MpBar</Filter>
+    </ClCompile>
+    <ClCompile Include="SpBar.cpp">
+      <Filter>01.Obj\UI\PlayerStatus\SpBar</Filter>
+    </ClCompile>
+    <ClCompile Include="QuickSlot.cpp">
+      <Filter>01.Obj\UI\QuickSlot</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillIcon.cpp">
+      <Filter>01.Obj\UI\QuickSlot\SkillIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStatus.cpp">
+      <Filter>01.Obj\UI\PlayerStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusBar.cpp">
+      <Filter>01.Obj\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipBar.cpp">
+      <Filter>01.Obj\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="InvenBar.cpp">
+      <Filter>01.Obj\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusWindow.cpp">
+      <Filter>01.Obj\UI\StatusWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundMgr.cpp">
+      <Filter>02.Manager\SoundManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

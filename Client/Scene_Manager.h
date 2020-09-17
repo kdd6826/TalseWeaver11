@@ -15,6 +15,8 @@ public:
 	void LateUpdate_Scene();
 	void Render_Scene();
 	void Release_Scene();
+public:
+	SCENE Get_SCENE() { return m_eCurScene; }
 private:
 	SCENE m_eCurScene; 
 	SCENE m_eNextScene; 
